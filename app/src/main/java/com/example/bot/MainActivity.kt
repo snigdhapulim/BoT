@@ -26,17 +26,17 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        //设置布局管理器
+        //set view holder
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        //设置适配器
+        //set adapter
         val adapter = EventAdapter(getEventList())
         recyclerView.adapter = adapter
     }
 
     private fun getEventList(): List<String> {
-        // 返回事件列表
+        // return list of events
         return listOf("event1", "event2", "event3", "event4")
     }
 }

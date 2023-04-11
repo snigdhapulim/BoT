@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 
 class EventFragment : Fragment() {
 
+    //This class is created for test
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
