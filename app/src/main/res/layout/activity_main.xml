@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         style="@style/custum_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         app:cardCornerRadius="10dp"
         >
         <LinearLayout
@@ -25,7 +25,8 @@
                 android:id="@+id/events_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="com.example.bot.Event"/>
+                android:name="com.example.bot.EventListFragment"
+                tools:layout="@layout/fragment_event_list" />
 
         </LinearLayout>
 
