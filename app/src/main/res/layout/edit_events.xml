@@ -8,13 +8,46 @@
     android:background="@drawable/background"
     android:orientation="vertical" >
 
+    <!--add buttons here-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/my_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/hamburger" />
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="59dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="170dp"
+            android:src="@drawable/lecture" />
+
+        <ImageButton
+            android:id="@+id/button3"
+            android:layout_width="59dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/lecture" />
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="567dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="16dp"
+        android:layout_height="540dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/rounded_background"
         android:orientation="vertical"
         android:padding="16dp">
@@ -31,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="5dp"
-                android:text="ADD EVENT"
+                android:text="Edit EVENT"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -61,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/edit_text_border"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:hint="MOBILE APP DEV 501"/>
         </LinearLayout>
 
 
@@ -94,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_text_border"
+                    android:hint="1 Downtown Boston"
                     android:padding="8dp" />
 
 
@@ -131,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_text_border"
+                    android:hint="595 Commonwealth ave"
                     android:padding="8dp" />
 
 
@@ -164,11 +200,21 @@
                 android:padding="0dp">
 
                 <EditText
-                    android:id="@+id/add_DateTime"
-                    android:layout_width="match_parent"
+                    android:id="@+id/add_Date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_text_border"
+                    android:hint="3/26/2023"
+                    android:padding="8dp" />
+
+                <EditText
+                    android:id="@+id/add_Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edit_text_border"
+                    android:hint="18:30"
                     android:padding="8dp" />
 
 
@@ -177,7 +223,59 @@
         </LinearLayout>
 
 
+
+
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/lecture" />
+
+
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="59dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="230dp"
+            android:src="@drawable/lecture" />
+
+
+    </LinearLayout>
+
+
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        style="@style/custum_card"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:cardCornerRadius="10dp"-->
+    <!--        >-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:padding="25dp">-->
+
+    <!--            <androidx.fragment.app.FragmentContainerView-->
+    <!--                android:id="@+id/events_view"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:name="com.example.bot.Event"/>-->
+
+    <!--        </LinearLayout>-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
 
 </LinearLayout>
