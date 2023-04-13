@@ -8,14 +8,10 @@ import com.example.bot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var eventDataList=listOf("App Dev","OOPS","Software Principles")
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.forEventsActivity.setOnClickListener {
             //val intent = Intent(this, )
             //startActivity(intent)
