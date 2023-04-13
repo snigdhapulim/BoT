@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">BoT</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fake_content">Shuttle UPCOMING Shuttle buses replace
+Braintree Branch service between North Quincy
+and JFK/UMass from 8:45 PM to end of service
+on Apr 3 - 6 for track tie replacement work.
+
+Affected stops:
+•JFK/UMass •North Quincy
+
+Updated: 3/30/2023 4:30 AM</string>
 </resources>
