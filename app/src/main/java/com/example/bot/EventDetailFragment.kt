@@ -1,5 +1,7 @@
 package com.example.bot
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -7,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +27,7 @@ class EventDetailFragment : DialogFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var edit_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +37,19 @@ class EventDetailFragment : DialogFragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view=inflater.inflate(R.layout.fragment_event_detail_fragment, container, false)
         getDialog()?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         // Inflate the layout for this fragment
+        edit_button = view.findViewById(R.id.edit_button)
+        edit_button.setOnClickListener{
+            val intent = Intent((activity as MainActivity), EditEvent::class.java)
+            (activity as MainActivity).startActivity(intent)
+        }
         return inflater.inflate(R.layout.fragment_event_detail_fragment, null, false)
     }
 

@@ -33,12 +33,11 @@ class AppBar : Fragment() {
         }
         notifications.setOnClickListener {
             val intent = Intent((activity as MainActivity), NotificationActivity::class.java)
-            //val intent = Intent(getActivity(),)
             (activity as MainActivity).startActivity(intent)
         }
         addEvent.setOnClickListener {
-            //val intent = Intent(getActivity(),)
-            //getActivity().startActivity(intent)
+            val intent = Intent((activity as MainActivity), AddEvent::class.java)
+            (activity as MainActivity).startActivity(intent)
         }
         return view
     }
