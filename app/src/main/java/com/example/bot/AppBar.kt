@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 
 
@@ -27,13 +28,13 @@ class AppBar : Fragment() {
         addEvent=view.findViewById(R.id.for_add_event)
         profileFragment.setOnClickListener {
             var profile:Profile= Profile()
-            val transaction:FragmentTransaction=fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.mainLayout,profile)
-            transaction.commit()
+            val fragmentManager = (activity as MainActivity).supportFragmentManager
+            profile.show(fragmentManager, "hello")
         }
         notifications.setOnClickListener {
+            val intent = Intent((activity as MainActivity), NotificationActivity::class.java)
             //val intent = Intent(getActivity(),)
-            //getActivity().startActivity(intent)
+            (activity as MainActivity).startActivity(intent)
         }
         addEvent.setOnClickListener {
             //val intent = Intent(getActivity(),)
