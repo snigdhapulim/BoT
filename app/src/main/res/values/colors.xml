@@ -9,6 +9,7 @@
     <color name="black_transparent">#B2837C7A</color>
     <color name="op_black">#837C7A</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whit_transparent">#32FFFFFF</color>
     <color name="green">#00843D</color>
     <color name="mint">#B4D0C4</color>
     <color name="yellow">#FCC478</color>
