@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         card = findViewById(R.id.signup)
         card.setOnClickListener{
             Toast.makeText(this, "buttom clicked", Toast.LENGTH_SHORT).show()
-            val intent  = Intent(this,SignUpAcntivity::class.java)
+            val intent  = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
 //            finish()
 

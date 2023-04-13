@@ -13,7 +13,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 
 
-class SignUpAcntivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     lateinit var google : ImageView
     lateinit var notify : ImageView
@@ -33,42 +33,15 @@ class SignUpAcntivity : AppCompatActivity() {
         notify = findViewById(R.id.notify)
 
         google.setOnClickListener{
-//            Toast.makeText(this, "Try to sign in ", Toast.LENGTH_SHORT).show()
-//
-//            val intent  = Intent(this,NotificationActivity::class.java)
-//            startActivity(intent)
-//            finish()
-
-
-
-            //try to do real log in here
-//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build()
-//            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-//            private void signIn() {
-//                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//                startActivityForResult(signInIntent, RC_SIGN_IN);
-//            }
-
-
-
-
                 val signInIntent = mGoogleSignInClient.signInIntent
                 startActivityForResult(signInIntent, 1316)
-
-
-
-
-
-
-
 
         }
 
         notify.setOnClickListener{
             Toast.makeText(this, "You 've turned notify on ", Toast.LENGTH_SHORT).show()
-
+            val intentNotification = Intent(this, NotificationActivity::class.java)
+            startActivity(intentNotification)
         }
 
     }
