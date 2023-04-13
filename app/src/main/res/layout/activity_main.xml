@@ -29,12 +29,21 @@
             android:orientation="vertical"
             android:padding="25dp">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclerview">
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Events"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
-            </androidx.recyclerview.widget.RecyclerView>
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/events_view"
+                android:name="com.example.bot.EventListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_event_list" />
 
         </LinearLayout>
 
@@ -44,7 +53,6 @@
         style="@style/custum_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signup"
         app:cardCornerRadius="10dp"
         >
         <LinearLayout
