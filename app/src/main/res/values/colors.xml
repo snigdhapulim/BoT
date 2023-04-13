@@ -12,4 +12,5 @@
     <color name="green">#00843D</color>
     <color name="mint">#B4D0C4</color>
     <color name="yellow">#FCC478</color>
+    <color name="transparent">#00FCC478</color>
 </resources>
