@@ -1,27 +1,24 @@
 package com.example.bot
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.cardview.widget.CardView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bot.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var card:CardView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        card = findViewById(R.id.signup)
-        card.setOnClickListener{
-            Toast.makeText(this, "buttom clicked", Toast.LENGTH_SHORT).show()
-            val intent  = Intent(this,SignUpAcntivity::class.java)
-            startActivity(intent)
-//            finish()
-
-
+        binding.forEventsActivity.setOnClickListener {
+            //val intent = Intent(this, )
+            //startActivity(intent)
+        }
+        binding.forLogin.setOnClickListener {
+            //val intent = Intent(this, )
+            //startActivity(intent)
         }
     }
 }
