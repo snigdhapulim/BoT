@@ -12,13 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.forEventsActivity.setOnClickListener {
-            val intent = Intent(this, EventsViewActivity::class.java)
-            startActivity(intent)
-        }
-        binding.forLogin.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

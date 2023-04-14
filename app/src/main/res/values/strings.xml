@@ -10,4 +10,11 @@ Affected stops:
 •JFK/UMass •North Quincy
 
 Updated: 3/30/2023 4:30 AM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="logout">Logout</string>
+    <string name="all_events">All Events</string>
+    <string name="view_profile">View Profile</string>
+    <string name="jane_doe">Jane Doe</string>
 </resources>
