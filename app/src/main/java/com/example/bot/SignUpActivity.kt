@@ -68,16 +68,20 @@ class SignUpActivity : AppCompatActivity() {
                 task.getResult(ApiException::class.java)
 
 
-//                val acco = GoogleSignIn.getLastSignedInAccount(this)
-//                    if (acco!=null){
-//                Toast.makeText(this, acco.displayName, Toast.LENGTH_SHORT).show()
+                val acco = GoogleSignIn.getLastSignedInAccount(this)
+                    if (acco!=null){
+                Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
 ////                        Toast.makeText(this, acco.displayName, Toast.LENGTH_SHORT).show()
+
 //
-//                    }
+                    }
+//                Toast.makeText(applicationContext, data.toString(), Toast.LENGTH_SHORT)
+//                    .show()
                 Log.d("Signup",data.toString())
                 println("result "+data.toString())
 //                navigateToSecondActivity()
 
+                finish()
 
             } catch (e: ApiException) {
                 Log.d("Signup","oh no")

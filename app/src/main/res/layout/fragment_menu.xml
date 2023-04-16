@@ -28,34 +28,37 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="114dp"
                 android:layout_height="114dp"
-                android:background="@drawable/bigger_circle"
+                android:background="@drawable/profile_nan"
+                android:id="@+id/menu_profile"
                 android:gravity="center"
                 android:layout_marginStart="-50dp">
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/profile"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageButton
-                    android:layout_width="31dp"
-                    android:layout_height="31dp"
-                    android:src="@drawable/baseline_edit_24"
-                    android:background="@drawable/tinny_circle"
-                    android:elevation="200dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:src="@drawable/profile"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <ImageButton-->
+<!--                    android:layout_width="31dp"-->
+<!--                    android:layout_height="31dp"-->
+<!--                    android:src="@drawable/baseline_edit_24"-->
+<!--                    android:background="@drawable/tinny_circle"-->
+<!--                    android:elevation="200dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/jane_doe"
+                android:text="@string/Nan_username"
+                android:id = "@+id/menu_username"
                 android:textColor="#ffffff"
                 android:gravity="center"
                 android:textSize="35sp"
@@ -178,8 +181,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/logout"
+                android:text="@string/login"
                 android:textColor="#ffffff"
+                android:id="@+id/logout"
                 android:textSize="30sp"
                 android:layout_marginStart="20dp"
                 />

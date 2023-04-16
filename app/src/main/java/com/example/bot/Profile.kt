@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +32,11 @@ class Profile : DialogFragment(){
             param2 = it.getString(ARG_PARAM2)
         }
     }
+//
+//    public fun set(z: String){
+//        param1 = z;
+//
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
