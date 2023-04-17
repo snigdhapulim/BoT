@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -61,7 +62,7 @@ class Menu() : DialogFragment() {
         if (acco!=null){
                 logoutext.setText(R.string.logout)
 
-            val constraintLayout = view.findViewById<ConstraintLayout>(R.id.menu_profile)
+            val profilePhoto = view.findViewById<ImageView>(R.id.imageView)
 //            constraintLayout.setBackgroundResource(acco.photoUrl)
 //            val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, acco.photoUrl)
 //            val bitmapDrawable = BitmapDrawable(resources, bitmap)
@@ -70,7 +71,8 @@ class Menu() : DialogFragment() {
 
             Glide.with(this).load(acco.photoUrl).into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                    constraintLayout.background = resource
+//                    profilePhoto.background = resource
+                    profilePhoto.setImageDrawable(resource)
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
@@ -150,8 +152,8 @@ class Menu() : DialogFragment() {
     }
 
 
-    //google account log in log out >>login logout will show here
-    public fun LoginOut(){
+    //google account log in or log out
+    fun LoginOut(){
 
         val acco = GoogleSignIn.getLastSignedInAccount(requireContext())
         //when acco is not null means the user has login before
@@ -168,8 +170,10 @@ class Menu() : DialogFragment() {
                         .show()
                     logoutext.setText(R.string.login)
 
-                    val constraintLayout = requireView().findViewById<ConstraintLayout>(R.id.menu_profile)
-                    constraintLayout.setBackgroundResource(R.drawable.profile_nan)
+//                    val context = applicationContext
+//                    val profilePhoto = requireView().findViewById<ImageView>(R.id.imageView)
+
+//                    profilePhoto.setImageDrawable(R.drawable.profile_nan)
 
 
 
