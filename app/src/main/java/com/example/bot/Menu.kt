@@ -1,6 +1,7 @@
 package com.example.bot
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
@@ -18,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -141,7 +143,7 @@ class Menu() : DialogFragment() {
 
 
         logout_button.setOnClickListener {
-            LoginOut()
+            LoginOut(requireContext())
         }
 //        println("Menu started")
 
@@ -153,7 +155,7 @@ class Menu() : DialogFragment() {
 
 
     //google account log in or log out
-    fun LoginOut(){
+    fun LoginOut(context: Context){
 
         val acco = GoogleSignIn.getLastSignedInAccount(requireContext())
         //when acco is not null means the user has login before
@@ -170,11 +172,11 @@ class Menu() : DialogFragment() {
                         .show()
                     logoutext.setText(R.string.login)
 
-//                    val context = applicationContext
-//                    val profilePhoto = requireView().findViewById<ImageView>(R.id.imageView)
+                    // get "imageView" in fragment_menu.xml, replace user photo with original "nan" photo.
+                    val profilePhotoImageView = requireView().findViewById<ImageView>(R.id.imageView)
+                    val profilePhotoDrawable = ContextCompat.getDrawable(context, R.drawable.profile)
 
-//                    profilePhoto.setImageDrawable(R.drawable.profile_nan)
-
+                    profilePhotoImageView.setImageDrawable(profilePhotoDrawable)
 
 
             }
