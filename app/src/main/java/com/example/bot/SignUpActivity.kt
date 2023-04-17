@@ -1,5 +1,7 @@
 package com.example.bot
 
+import RetrieveCalendarEventsTask
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +12,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 
 
 class SignUpActivity : AppCompatActivity() {
 
     lateinit var google : ImageView
     lateinit var notify : ImageView
+    lateinit var token: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
+            .requestScopes(Scope("https://www.googleapis.com/auth/calendar"), Scope("https://www.googleapis.com/auth/calendar.events"), Scope("https://www.googleapis.com/auth/contacts.readonly"), Scope("https://www.googleapis.com/auth/userinfo.profile"), Scope("https://www.googleapis.com/auth/userinfo.email"), Scope("https://www.googleapis.com/auth/plus.login"), Scope("https://www.googleapis.com/auth/drive.appdata"), Scope("https://www.googleapis.com/auth/gmail.readonly"), Scope("https://www.googleapis.com/auth/gmail.compose"), Scope("https://www.googleapis.com/auth/gmail.modify"), Scope("https://www.googleapis.com/auth/gmail.labels"), Scope("https://www.googleapis.com/auth/gmail.send"), Scope("https://www.googleapis.com/auth/tasks"))
             .build()
         var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         super.onCreate(savedInstanceState)
@@ -42,6 +52,7 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(this, "You 've turned notify on ", Toast.LENGTH_SHORT).show()
             val intentNotification = Intent(this, NotificationActivity::class.java)
             startActivity(intentNotification)
+
         }
 
     }
@@ -65,14 +76,13 @@ class SignUpActivity : AppCompatActivity() {
         if (requestCode == 1316) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                task.getResult(ApiException::class.java)
-
+                val account = task.getResult(ApiException::class.java)
+//                val token = account?.idToken
+                Log.i("token is", account?.idToken.toString())
 
                 val acco = GoogleSignIn.getLastSignedInAccount(this)
-                    if (acco!=null){
+                if (acco!=null){
                 Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
-////                        Toast.makeText(this, acco.displayName, Toast.LENGTH_SHORT).show()
-
 //
                     }
 //                Toast.makeText(applicationContext, data.toString(), Toast.LENGTH_SHORT)

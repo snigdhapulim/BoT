@@ -1,5 +1,6 @@
 package com.example.bot
 
+import RetrieveCalendarEventsTask
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +65,10 @@ class Menu() : DialogFragment() {
 
         if (acco!=null){
                 logoutext.setText(R.string.logout)
+                val token = acco?.idToken
+                Log.i("token is", acco.idToken.toString())
+//                val task = RetrieveCalendarEventsTask(token)
+//                task.execute()
 
             val profilePhoto = view.findViewById<ImageView>(R.id.imageView)
 //            constraintLayout.setBackgroundResource(acco.photoUrl)
