@@ -30,8 +30,8 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestScopes(Scope("https://www.googleapis.com/auth/calendar"), Scope("https://www.googleapis.com/auth/calendar.events"), Scope("https://www.googleapis.com/auth/contacts.readonly"), Scope("https://www.googleapis.com/auth/userinfo.profile"), Scope("https://www.googleapis.com/auth/userinfo.email"), Scope("https://www.googleapis.com/auth/plus.login"), Scope("https://www.googleapis.com/auth/drive.appdata"), Scope("https://www.googleapis.com/auth/gmail.readonly"), Scope("https://www.googleapis.com/auth/gmail.compose"), Scope("https://www.googleapis.com/auth/gmail.modify"), Scope("https://www.googleapis.com/auth/gmail.labels"), Scope("https://www.googleapis.com/auth/gmail.send"), Scope("https://www.googleapis.com/auth/tasks"))
             .build()
         var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
