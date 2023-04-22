@@ -17,10 +17,10 @@ class NotificationViewModel : ViewModel() {
     val notifications: LiveData<List<NotificationContent>> get() = _notifications
 
     init {
+
         viewModelScope.launch {
             getAlerts()
         }
-
     }
 
     fun getAlerts() {
@@ -29,10 +29,19 @@ class NotificationViewModel : ViewModel() {
                 call: Call<AlertResponse?>,
                 response: Response<AlertResponse?>
             ) {
-                val noti = response.body()?.data
-                noti?.forEach {
-                    Log.d("Noti: ", it.toString())
+                val responseDataList = response.body()?.data
+                val notificationContentList = ArrayList<NotificationContent>()
+
+                responseDataList?.forEach {
+                    val content = NotificationContent(
+                        it.attributes.service_effect,
+                        it.attributes.short_header,
+                        it.attributes.updated_at.substring(0,16) )
+
+                    notificationContentList.add(content)
                 }
+
+                _notifications.postValue(notificationContentList)
             }
 
             override fun onFailure(call: Call<AlertResponse?>, t: Throwable) {

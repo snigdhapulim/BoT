@@ -1,4 +1,5 @@
 package com.example.bot
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ class NotificationAdapter(private var nList: List<NotificationContent>) : Recycl
     // binds ViewHolders to data from the model
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val notification = nList[position]
-
         // bind view with data
         holder.bind(notification)
 
@@ -32,17 +32,16 @@ class NotificationAdapter(private var nList: List<NotificationContent>) : Recycl
         return nList.size
     }
 
-    fun updateNotifications(newNotifications: List<NotificationContent>) {
-        nList = newNotifications
-    }
 
     // Define a view holder to hold references to each item view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(notification: NotificationContent) {
             val textView_title: TextView = itemView.findViewById(R.id.textView_title)
             val textView_content: TextView = itemView.findViewById(R.id.textView_content)
-            textView_title.text = notification.header
+            val textView_updateTime: TextView = itemView.findViewById(R.id.textView_updateTime)
+            textView_title.text = notification.title
             textView_content.text = notification.description
+            textView_updateTime.text = notification.updateTime
         }
     }
 }

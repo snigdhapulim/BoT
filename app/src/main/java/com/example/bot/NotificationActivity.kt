@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bot.databinding.ActivityMainBinding
 
+/**
+ * This is the activity of Notification Board(single screen)
+ */
+
 class NotificationActivity : AppCompatActivity() {
 
-//    val notificationViewModel: NotificationViewModel by viewModels()
     private lateinit var notificationViewModel: NotificationViewModel
     private lateinit var notificationAdapter: NotificationAdapter
     private lateinit var recyclerView: RecyclerView
@@ -21,7 +24,8 @@ class NotificationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notification)
 
         // getting the recyclerview by its id
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.isScrollbarFadingEnabled = false
 
         // this creates a vertical layout Manager
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -34,25 +38,13 @@ class NotificationActivity : AppCompatActivity() {
         notificationAdapter = NotificationAdapter(emptyList())
         recyclerView.adapter = notificationAdapter
 
-        notificationViewModel.notifications.observe(this) { notifications ->
-            notificationAdapter = NotificationAdapter(notifications)
+        // New changes of notification content would be observed and updated to the view
+        notificationViewModel.notifications.observe(this) { newData ->
+            notificationAdapter = NotificationAdapter(newData)
             recyclerView.adapter = notificationAdapter
 
         }
 
-
-//        val data = ArrayList<NotificationContent>()
-//        for (i in 1..4){
-//            data.add(NotificationContent(
-//                "Red Line",
-//                getString(R.string.fake_content)
-//            ))
-//        }
-//
-//        val adapter = NotificationAdapter(data)
-//
-//        // Setting the Adapter with the recyclerview
-//        recyclerview.adapter = adapter
 
     }
 }
