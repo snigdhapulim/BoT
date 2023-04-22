@@ -23,6 +23,7 @@ class SignUpActivity : AppCompatActivity() {
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
+            .requestIdToken("113685615928-piqgp4hde7em6ovfrejc5p3ff3f5s04g.apps.googleusercontent.com")
             .build()
         var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         super.onCreate(savedInstanceState)
