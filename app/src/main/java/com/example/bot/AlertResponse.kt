@@ -1,5 +1,8 @@
 package com.example.bot
 
+/**
+ * This is a data class for holding the content of api response ("alerts") from MBTA API
+ */
 data class AlertResponse(
     val links: Links,
     val data: List<Data>
