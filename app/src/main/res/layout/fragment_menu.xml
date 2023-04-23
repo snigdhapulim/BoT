@@ -29,8 +29,10 @@
                 android:layout_width="114dp"
                 android:layout_height="114dp"
                 android:background="@drawable/bigger_circle"
+                android:id="@+id/menu_profile"
                 android:gravity="center"
                 android:layout_marginStart="-50dp">
+
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -55,7 +57,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/jane_doe"
+                android:text="@string/Nan_username"
+                android:id = "@+id/menu_username"
                 android:textColor="#ffffff"
                 android:gravity="center"
                 android:textSize="35sp"
@@ -178,8 +181,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/logout"
+                android:text="@string/login"
                 android:textColor="#ffffff"
+                android:id="@+id/logout"
                 android:textSize="30sp"
                 android:layout_marginStart="20dp"
                 />
