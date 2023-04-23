@@ -18,7 +18,7 @@ router.get('/get-token', function(req, res, next) {
     }).then(result => {
         // console.log(result.data)
         return res.send({
-            acces_token: result.data.acces_token,
+            acces_token: result.data.access_token,
             scope: result.data.scope,
             expires_in: result.data.expires_in,
             token_type: result.data.token_type,
