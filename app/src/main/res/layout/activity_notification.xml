@@ -37,7 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/notification_item"
-                tools:itemCount="3"/>
+                tools:itemCount="3"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideOverlay"/>
 
         </LinearLayout>
 
