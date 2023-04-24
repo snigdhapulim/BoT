@@ -26,7 +26,7 @@ router.get('/get-token', function(req, res, next) {
     }).then(result => {
         // console.log(result.data)
         return res.send({
-            acces_token: result.data.access_token,
+            access_token: result.data.access_token,
             scope: result.data.scope,
             expires_in: result.data.expires_in,
             token_type: result.data.token_type,
@@ -86,9 +86,9 @@ router.post('/user/addCalendarIfNewUser', async function(req, res, next) {
         `${process.env.DB_URI}/bot_app`
     );
 
+    const name = req.body.name
     const email = req.body.email;
-    const accessToken = req.headers.authorization.split(" ")[1]; // Extract the access token from the Authorization header
-
+    const authorization = req.body.authorization; // Extract the access token from the Authorization header
     try {
         const user = await userModel.findOne({ email: email });
         if (user) {
@@ -98,24 +98,31 @@ router.post('/user/addCalendarIfNewUser', async function(req, res, next) {
             const calendarData = {
                 summary: `BOT Calendar`
             };
-            const response = await axios.post(
-                "https://www.googleapis.com/calendar/v3/calendars",
-                calendarData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                }
-            );
-            const calendarId = response.data.id;
+            const savedUser = await axios.get("http://localhost:3000/api/android/get-token?token="+authorization).then(res => {
+                const accessToken = res.data.access_token
+                const response = axios.post(
+                    "https://www.googleapis.com/calendar/v3/calendars",
+                    calendarData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    }
+                ).then(res => {
+                    const calendarId = res.data.id;
+    
+                    // Create a new user with the given email and calendarId
+                    const newUser = new userModel({
+                        name: name,
+                        email: email,
+                        calenderId: calendarId,
+                    });
+                    const savedUser = newUser.save();
+                    return savedUser;
+                })
 
-            // Create a new user with the given email and calendarId
-            const newUser = new userModel({
-                email: email,
-                calenderId: calendarId,
-            });
-            const savedUser = await newUser.save();
-
+                return response
+            })
             return res.send(savedUser);
         }
     } catch (error) {

@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  calenderID: {
+  calenderId: {
     type: String,
     required: true,
   },
