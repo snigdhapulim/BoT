@@ -2,6 +2,14 @@ var express = require('express');
 const axios = require('axios')
 const fs = require('fs/promises');
 const cs = require('./client_secret.json')
+const config = require('dotenv')
+const mongoose = require("mongoose");
+const userModel = require("../models/users")
+
+
+mongoose.set("strictQuery", false);
+const mongoDB = "mongodb://127.0.0.1/my_database";
+
 
 var router = express.Router();
 
@@ -29,5 +37,25 @@ router.get('/get-token', function(req, res, next) {
     })
     // res.render('index', { title: 'Express' });
 });
+
+router.post('/user/create', async function(req,res,next){
+    console.log(process.env.DB_URI)
+    mongoose.connect(
+    `${process.env.DB_URI}/bot_app`
+    );
+
+    const user = new userModel(req.body);
+    try {
+      userData = await user.save().then(res => {
+        return res
+      }).catch(err => {
+        console.log(err)
+      })
+      return res.send(userData)
+    } catch (error) {
+        console.log(error)
+      res.status(500).send(error);
+    }
+})
 
 module.exports = router;
