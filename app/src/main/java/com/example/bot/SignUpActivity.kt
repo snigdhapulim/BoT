@@ -8,12 +8,16 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -83,10 +87,11 @@ class SignUpActivity : AppCompatActivity() {
                 val acco = GoogleSignIn.getLastSignedInAccount(this)
                 if (acco!=null){
                 Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
-//
+                    var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
+                    lifecycleScope.launch{
+                        UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
                     }
-//                Toast.makeText(applicationContext, data.toString(), Toast.LENGTH_SHORT)
-//                    .show()
+                }
                 Log.d("Signup",data.toString())
                 println("result "+data.toString())
 //                navigateToSecondActivity()
