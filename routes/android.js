@@ -80,4 +80,49 @@ router.post('/user/check', async function(req, res, next) {
 })
 
 
+router.post('/user/addCalendarIfNewUser', async function(req, res, next) {
+    console.log(process.env.DB_URI)
+    mongoose.connect(
+        `${process.env.DB_URI}/bot_app`
+    );
+
+    const email = req.body.email;
+    const accessToken = req.headers.authorization.split(" ")[1]; // Extract the access token from the Authorization header
+
+    try {
+        const user = await userModel.findOne({ email: email });
+        if (user) {
+            return res.send({ email: user.email });
+        } else {
+            // Create a new calendar for the user
+            const calendarData = {
+                summary: `BOT Calendar`
+            };
+            const response = await axios.post(
+                "https://www.googleapis.com/calendar/v3/calendars",
+                calendarData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                }
+            );
+            const calendarId = response.data.id;
+
+            // Create a new user with the given email and calendarId
+            const newUser = new userModel({
+                email: email,
+                calenderId: calendarId,
+            });
+            const savedUser = await newUser.save();
+
+            return res.send(savedUser);
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+});
+
+
 module.exports = router;

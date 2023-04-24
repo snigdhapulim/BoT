@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: true
+    type: String
   },
   email: {
     type: String,
@@ -14,8 +13,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   homeAddress: {
-    type: String,
-    required: false,
+    type: String
   },
   friends: {
     name: {
