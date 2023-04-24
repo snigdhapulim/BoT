@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:background="@drawable/background"
     android:orientation="vertical"
-    android:id="@+id/mainLayout" >
+    android:id="@+id/mainLayout">
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
@@ -21,11 +21,11 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="25dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,6 +97,13 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
+                <ImageView
+                    android:id="@+id/event_location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/event_loc" />
+
                 <EditText
                     android:id="@+id/add_location"
                     android:layout_width="match_parent"
@@ -134,6 +141,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="0dp">
+
+                <ImageView
+                    android:id="@+id/departure_location_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/dep_loc" />
 
                 <EditText
                     android:id="@+id/add_departure_location"
@@ -174,18 +188,26 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <EditText
-                    android:id="@+id/add_Date"
+                <ImageView
+                    android:id="@+id/date_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/date" />
+
+                <EditText
+                    android:id="@+id/add_Date"
+                    android:layout_width="177dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/edit_text_border"
                     android:hint="3/26/2023"
                     android:padding="8dp" />
 
                 <EditText
                     android:id="@+id/add_Time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="103dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_text_border"
@@ -197,32 +219,32 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-
         android:orientation="horizontal"
         android:padding="16dp">
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/lecture" />
-
-
+            android:src="@drawable/back"
+            android:background="@null" />
 
         <ImageButton
             android:id="@+id/next"
-            android:layout_width="59dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="230dp"
-            android:src="@drawable/lecture" />
+            android:src="@drawable/green_confirm"
+            android:background="@null" />
+
 
 
     </LinearLayout>
