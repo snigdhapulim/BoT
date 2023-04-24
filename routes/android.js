@@ -58,4 +58,26 @@ router.post('/user/create', async function(req,res,next){
     }
 })
 
+router.post('/user/check', async function(req, res, next) {
+    console.log(process.env.DB_URI)
+    mongoose.connect(
+        `${process.env.DB_URI}/bot_app`
+    );
+
+    const email = req.body.email;
+
+    try {
+        const user = await userModel.findOne({ email: email });
+        if (user) {
+            return res.send({ message: "User found" });
+        } else {
+            return res.send({ message: "User not found" });
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
+
+
 module.exports = router;
