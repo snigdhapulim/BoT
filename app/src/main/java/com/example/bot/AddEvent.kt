@@ -23,7 +23,7 @@ class AddEvent : AppCompatActivity() {
         val apiKey = value.toString()
 
         if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, apiKey)
+            Places.initialize(applicationContext, "AIzaSyAmjj4km9mc04VEvtj3mqVEYH6L7kc2vks")
         }
 
         // Initialize the AutocompleteSupportFragment.
@@ -32,13 +32,13 @@ class AddEvent : AppCompatActivity() {
                     as AutocompleteSupportFragment
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS))
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
-                Log.i("Add Event", "Place: ${place.name}, ${place.id}")
+                Log.i("Add Event", "Place: ${place.name}, ${place.id}, ${place.address}")
             }
 
             override fun onError(status: Status) {
