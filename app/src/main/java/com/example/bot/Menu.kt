@@ -80,6 +80,8 @@ class Menu() : DialogFragment() {
             Glide.with(this).load(acco.photoUrl).into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
 //                    profilePhoto.background = resource
+                    profilePhoto.layoutParams.width=(144*resources.displayMetrics.density).toInt()
+                    profilePhoto.layoutParams.height=(144*resources.displayMetrics.density).toInt()
                     profilePhoto.setImageDrawable(resource)
                 }
 
