@@ -24,13 +24,15 @@ router.get('/get-token', function(req, res, next) {
         'redirect_uri': 'http://localhost:3000',
         'grant_type': 'authorization_code',
     }).then(result => {
-        // console.log(result.data)
+        // res.cookie('refresh_token', result.data.a)
+        console.log(result)
         return res.send({
             access_token: result.data.access_token,
             scope: result.data.scope,
             expires_in: result.data.expires_in,
             token_type: result.data.token_type,
-            id_token: result.data.id_token
+            id_token: result.data.id_token,
+            refresh_token: result.data.refresh_token
         })
     }).catch(err => {
         console.log(err)
@@ -40,7 +42,7 @@ router.get('/get-token', function(req, res, next) {
 
 router.post('/user/create', async function(req,res,next){
     console.log(process.env.DB_URI)
-    mongoose.connect(
+    await mongoose.connect(
     `${process.env.DB_URI}/bot_app`
     );
 
@@ -60,7 +62,7 @@ router.post('/user/create', async function(req,res,next){
 
 router.get('/user/check/:email', async function(req, res, next) {
     console.log(process.env.DB_URI)
-    mongoose.connect(
+    await mongoose.connect(
         `${process.env.DB_URI}/bot_app`
     );
 
@@ -80,56 +82,119 @@ router.get('/user/check/:email', async function(req, res, next) {
 })
 
 
-router.post('/user/addCalendarIfNewUser', async function(req, res, next) {
+router.post('/user/calender/add', async function(req, res, next) {
     console.log(process.env.DB_URI)
+    return mongoose.connect(
+        `${process.env.DB_URI}/bot_app`
+    ).then(async result => {
+        const name = req.body.name
+        const email = req.body.email;
+        const authorization = req.body.authorization; // Extract the access token from the Authorization header
+        try {
+            return userModel.findOne({ email: email }).then(async user => {
+                if (user) {
+                    const savedUser = await axios.get("http://localhost:3000/api/android/get-token?token="+authorization).then(token => {
+                        return token;
+                    })
+                    console.log(savedUser)
+                    return res.json({
+                        access_token: savedUser.data.access_token,
+                        refresh_token: savedUser.data.refresh_token
+                    });
+                } else {
+                    // Create a new calendar for the user
+                    const calendarData = {
+                        summary: `BOT Calendar`
+                    };
+                    const savedUser = await axios.get("http://localhost:3000/api/android/get-token?token="+authorization).then(token => {
+                        const accessToken = token.data.access_token
+                        const response = axios.post(
+                            "https://www.googleapis.com/calendar/v3/calendars",
+                            calendarData,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${accessToken}`,
+                                },
+                            }
+                        ).then(calender => {
+                            const calendarId = calender.data.id;
+            
+                            // Create a new user with the given email and calendarId
+                            const newUser = new userModel({
+                                name: name,
+                                email: email,
+                                calenderId: calendarId,
+                            });
+                            const savedUser = newUser.save();
+                            return savedUser;
+                        })
+    
+                        return token
+                    })
+                    return res.send({
+                        access_token: savedUser.data.access_token,
+                        refresh_token: savedUser.data.refresh_token
+                    });
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(500).send(error);
+        }
+    })
+});
+
+router.post('/calender/event/create', function (req,res,next) {
+    const accessToken = req.body.access_token;
+    const eventData = {
+    summary: req.body.summary,
+    location: req.body.location,
+    description: req.body.description,
+    start: {
+        // dateTime: new Date(req.body.startDateTime).toISOString(),
+        dateTime: req.body.startDateTime,
+        timeZone: 'America/New_York'
+    },
+    end: {
+        dateTime: req.body.endDateTime,
+        timeZone: 'America/New_York'
+    },
+    reminders: {
+        useDefault: true
+    }
+    };
+
+    // Set up the request options
+    const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        }
+    };
+
     mongoose.connect(
         `${process.env.DB_URI}/bot_app`
-    );
-
-    const name = req.body.name
-    const email = req.body.email;
-    const authorization = req.body.authorization; // Extract the access token from the Authorization header
-    try {
-        const user = await userModel.findOne({ email: email });
-        if (user) {
-            return res.send({ email: user.email });
-        } else {
-            // Create a new calendar for the user
-            const calendarData = {
-                summary: `BOT Calendar`
-            };
-            const savedUser = await axios.get("http://localhost:3000/api/android/get-token?token="+authorization).then(res => {
-                const accessToken = res.data.access_token
-                const response = axios.post(
-                    "https://www.googleapis.com/calendar/v3/calendars",
-                    calendarData,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                        },
-                    }
-                ).then(res => {
-                    const calendarId = res.data.id;
-    
-                    // Create a new user with the given email and calendarId
-                    const newUser = new userModel({
-                        name: name,
-                        email: email,
-                        calenderId: calendarId,
-                    });
-                    const savedUser = newUser.save();
-                    return savedUser;
+    ).then(async result => {
+        const email = req.body.email;
+        return userModel.findOne({ email: email }).then(async user => {
+            if (user) {
+                console.log(user.calenderId)
+                const url = `https://www.googleapis.com/calendar/v3/calendars/${user.calenderId}/events`;
+                axios.post(url, eventData, config).then(result => {
+                    console.log(result)
+                }).catch(err => {
+                    console.log(err)
                 })
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }).catch(err => {
+        console.log(err)
+    })
 
-                return response
-            })
-            return res.send(savedUser);
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).send(error);
-    }
-});
+    return res.send("Event created succesfully")
+})
 
 
 module.exports = router;
