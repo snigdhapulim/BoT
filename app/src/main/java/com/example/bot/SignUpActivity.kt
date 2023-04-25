@@ -2,6 +2,7 @@ package com.example.bot
 
 //import RetrieveCalendarEventsTask
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,13 +11,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.bot.network.UserAPI
+import com.example.bot.network.UserData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -80,18 +84,30 @@ class SignUpActivity : AppCompatActivity() {
         if (requestCode == 1316) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account = task.getResult(ApiException::class.java)
+//                val account = task.getResult(ApiException::class.java)
 //                val token = account?.idToken
-                Log.i("token is", account?.serverAuthCode.toString())
 
-                val acco = GoogleSignIn.getLastSignedInAccount(this)
-                if (acco!=null){
-                Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
-                    var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
-                    lifecycleScope.launch{
-                        UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
+                    val acco = GoogleSignIn.getLastSignedInAccount(this)
+                    if (acco!=null){
+                        Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
+                        CoroutineScope(Dispatchers.Main).launch{
+                            var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
+                            Log.i("SignUp", "Reached here atleast")
+                            try {
+                                var loggedIn =
+                                    UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
+                                Log.i("SignUp", "Logged in User Tokens: " + loggedIn.access_token.toString() + " : " + loggedIn.refresh_token.toString())
+                                // Save access token to SharedPreferences
+                                val preferences = getSharedPreferences("bot_tokens", Context.MODE_PRIVATE)
+                                preferences.edit().putString("access_token", loggedIn.access_token.toString()).apply()
+
+                                // Retrieve access token from SharedPreferences
+                                val accessToken = preferences.getString("access_token", null)
+                            } catch (error: java.lang.Exception){
+                                Log.i("SignUp", error.toString())
+                            }
+                        }
                     }
-                }
                 Log.d("Signup",data.toString())
                 println("result "+data.toString())
 //                navigateToSecondActivity()

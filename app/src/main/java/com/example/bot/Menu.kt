@@ -65,8 +65,6 @@ class Menu() : DialogFragment() {
 
         if (acco!=null){
                 logoutext.setText(R.string.logout)
-                val token = acco?.idToken
-                Log.i("token is", acco.idToken.toString())
 //                val task = RetrieveCalendarEventsTask(token)
 //                task.execute()
 
