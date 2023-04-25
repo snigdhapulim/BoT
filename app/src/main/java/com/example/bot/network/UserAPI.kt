@@ -32,7 +32,7 @@ class UserAPI {
             }
 
         interface USERAPICreateService {
-            @POST("user/addCalendarIfNewUser")
+            @POST("user/calender/add")
             suspend fun createUser(@Body() user:User): UserData
         }
 }
