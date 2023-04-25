@@ -85,6 +85,7 @@ class Menu() : DialogFragment() {
 
                 override fun onLoadCleared(placeholder: Drawable?) {
                     // not implemented
+
                 }
             })
 
