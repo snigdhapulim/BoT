@@ -8,3 +8,9 @@ data class UserData (
     @Json(name = "access_token") val access_token: String?,
     @Json(name = "refresh_token") val refresh_token: String?
 )
+
+data class HomeCheck(
+    @Json(name = "success") val success: Boolean?,
+    @Json(name = "message") val message: String?,
+    @Json(name = "address") val address: String?
+)

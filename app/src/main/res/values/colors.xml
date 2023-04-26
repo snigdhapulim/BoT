@@ -7,9 +7,11 @@
     <color name="teal_700">#A9023939</color>
     <color name="black">#FF000000</color>
     <color name="black_transparent">#B2837C7A</color>
+    <color name="black_non_transparent">#837C7A</color>
     <color name="grey">#837C7A</color>
     <color name="op_black">#837C7A</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
     <color name="whit_transparent">#32FFFFFF</color>
     <color name="green">#00843D</color>
     <color name="mint">#B4D0C4</color>
