@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import com.example.bot.network.UserAPI
 import com.example.bot.network.UserData
@@ -63,6 +64,12 @@ class SignUpActivity : AppCompatActivity() {
 
         }
 
+        val acco = GoogleSignIn.getLastSignedInAccount(this)
+        if (acco!=null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 
@@ -112,7 +119,8 @@ class SignUpActivity : AppCompatActivity() {
                 println("result "+data.toString())
 //                navigateToSecondActivity()
 
-                finish()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
 
             } catch (e: ApiException) {
                 Log.d("Signup","oh no")

@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -25,14 +26,40 @@ val retrofit = Retrofit.Builder()
 class UserAPI {
     class User(private val name: String, private val email: String, private val authorization: String)
 
+    class HomeAddress(private val email:String, private val homeAddress: String)
+
         public object UserCreateAPI {
                 val retrofitCreateUserService : USERAPICreateService by lazy {
                     retrofit.create(USERAPICreateService::class.java)
                 }
             }
 
+        public object CheckHomeAPI {
+            val retrofitCheckHomeService : CheckHomeService by lazy {
+                retrofit.create(CheckHomeService::class.java)
+            }
+        }
+
+        public object UpdateAddressAPI {
+            val retrofitUpdateAddressService : UpdateAddressService by lazy {
+                retrofit.create(UpdateAddressService::class.java)
+            }
+        }
+
         interface USERAPICreateService {
             @POST("user/calender/add")
             suspend fun createUser(@Body() user:User): UserData
         }
+
+        interface CheckHomeService {
+            @GET("user/home/check/{email}")
+            suspend fun checkHome(@Path("email") email:String): HomeCheck
+        }
+
+        interface UpdateAddressService {
+            @POST("user/update/home")
+            suspend fun updateAddress(@Body address: HomeAddress)
+        }
+
+
 }

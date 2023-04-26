@@ -16,7 +16,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/custum_card"
+            style="@style/custum_card_full"
             app:cardCornerRadius="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/profileImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/profile"
@@ -50,6 +50,7 @@
                         app:layout_constraintEnd_toEndOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <TextView
+                    android:id="@+id/profileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Jane Doe"
@@ -58,6 +59,7 @@
                     android:textSize="25dp"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/profileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="jane@doe.com"
@@ -65,18 +67,36 @@
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     />
+                <TextView
+                    android:id="@+id/caution_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="* Please Set Home Address"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/red"
+                    android:textSize="15dp"
+                    />
+
+                <fragment android:id="@+id/autocomplete_profile_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    />
                 <LinearLayout
+                    android:id="@+id/address_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:layout_marginStart="0dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/marker"
                         android:layout_marginRight="5dp"/>
                     <TextView
+                        android:id="@+id/profileAddress"
                         android:layout_width="wrap_content"
                         android:maxWidth="170dp"
                         android:layout_height="wrap_content"
@@ -86,12 +106,14 @@
                         android:textSize="15sp"
                         />
                     <TextView
+                        android:id="@+id/profilePin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:text="020135"
                         android:textColor="@color/white"
                         android:textSize="25sp"
+                        android:layout_marginTop="-5dp"
                         />
                 </LinearLayout>
             </LinearLayout>

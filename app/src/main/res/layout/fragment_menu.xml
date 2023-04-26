@@ -99,6 +99,14 @@
                 android:gravity="center"
                 />
 
+            <ImageView
+                android:id="@+id/warning_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/warning"
+                android:layout_marginLeft="15dp"/>
+
+
 
         </LinearLayout>
 

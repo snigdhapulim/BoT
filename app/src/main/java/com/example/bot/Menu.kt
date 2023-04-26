@@ -26,8 +26,12 @@ import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class Menu() : DialogFragment() {
 
@@ -37,6 +41,7 @@ class Menu() : DialogFragment() {
     private lateinit var add_event_button: LinearLayout
     private lateinit var menuUsername : TextView
     private lateinit var logoutext : TextView
+    private lateinit var cautionSymbol : ImageView
 
 
     override fun onStart() {
@@ -53,7 +58,6 @@ class Menu() : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onResume() {
@@ -68,6 +72,16 @@ class Menu() : DialogFragment() {
 //                val task = RetrieveCalendarEventsTask(token)
 //                task.execute()
 
+            CoroutineScope(Dispatchers.Main).launch {
+                var homeCheck = UserAPI.CheckHomeAPI.retrofitCheckHomeService.checkHome(acco.email.toString())
+                cautionSymbol = view.findViewById(R.id.warning_image)
+                if(homeCheck.success.toString().toBoolean()){
+                    cautionSymbol.visibility = View.GONE
+                }else{
+                    cautionSymbol.visibility = View.VISIBLE
+                }
+            }
+
             val profilePhoto = view.findViewById<ImageView>(R.id.imageView)
 //            constraintLayout.setBackgroundResource(acco.photoUrl)
 //            val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, acco.photoUrl)
@@ -77,9 +91,8 @@ class Menu() : DialogFragment() {
 
             Glide.with(this).load(acco.photoUrl).into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-//                    profilePhoto.background = resource
-                    profilePhoto.layoutParams.width=(144*resources.displayMetrics.density).toInt()
-                    profilePhoto.layoutParams.height=(144*resources.displayMetrics.density).toInt()
+                    profilePhoto.layoutParams.width=(114*resources.displayMetrics.density).toInt()
+                    profilePhoto.layoutParams.height=(114*resources.displayMetrics.density).toInt()
                     profilePhoto.setImageDrawable(resource)
                 }
 
@@ -184,6 +197,12 @@ class Menu() : DialogFragment() {
                     val profilePhotoDrawable = ContextCompat.getDrawable(context, R.drawable.profile)
 
                     profilePhotoImageView.setImageDrawable(profilePhotoDrawable)
+
+
+                    val intent = Intent(activity, SignUpActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    activity?.finishAffinity()
+                    startActivity(intent)
 
 
             }
