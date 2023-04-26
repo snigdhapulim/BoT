@@ -181,7 +181,15 @@ router.post('/calender/event/create', function (req,res,next) {
                 console.log(user.calenderId)
                 const url = `https://www.googleapis.com/calendar/v3/calendars/${user.calenderId}/events`;
                 axios.post(url, eventData, config).then(result => {
-                    console.log(result)
+                    userModel.findOneAndUpdate(
+                        { email: email },
+                        { $push: { events: eventData } },
+                        { new: true, upsert: true }
+                    ).then(updatedUser => {
+                        console.log('Event added to the user document:', updatedUser);
+                    }).catch(err => {
+                        console.log('Error updating user document:', err);
+                    });
                 }).catch(err => {
                     console.log(err)
                 })

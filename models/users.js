@@ -17,12 +17,30 @@ const UserSchema = new mongoose.Schema({
   },
   friends: {
     name: {
-        type: String
+      type: String
     },
     email: {
-        type: String
+      type: String
     },
-  }
+  },
+  events: [
+    {
+      summary: String,
+      location: String,
+      description: String,
+      start: {
+        dateTime: String,
+        timeZone: String
+      },
+      end: {
+        dateTime: String,
+        timeZone: String
+      },
+      reminders: {
+        useDefault: Boolean
+      }
+    }
+  ]
 });
 
 const User = mongoose.model("User", UserSchema);
