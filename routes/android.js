@@ -196,5 +196,81 @@ router.post('/calender/event/create', function (req,res,next) {
     return res.send("Event created succesfully")
 })
 
+router.post("/user/update/home", async function (req,res,next){
+    const userEmail = req.body.email;
+    const newHomeAddress = req.body.homeAddress;
+
+    // Update the user's homeAddress field
+    const update = await mongoose.connect(
+        `${process.env.DB_URI}/bot_app`
+        ).then(async result => {
+            await userModel.findOneAndUpdate({ email: userEmail }, { homeAddress: newHomeAddress }, { new: true })
+            .then(updatedUser => {
+                console.log(`Successfully updated homeAddress for user with email ${userEmail}`);
+                console.log(updatedUser);
+                return true;
+            })
+            .catch(error => {
+                console.error(`Error updating homeAddress for user with email ${userEmail}`);
+                console.error(error);
+                return false;
+            });
+    })
+
+    if(update){
+        return res.send("Update complete")
+    }else{
+        return res.send("Something went wrong")
+    }
+})
+
+
+router.get("/user/home/check/:email", async function(req,res,next) {
+    const userEmail = req.params.email;
+
+    var address;
+
+    const home = await mongoose.connect(
+        `${process.env.DB_URI}/bot_app`
+        ).then(async result => {
+        return await userModel.findOne({ email: userEmail })
+        .then(user => {
+            if (user.homeAddress) {
+            console.log(`The homeAddress for user with email ${userEmail} is ${user.homeAddress}`);
+                return {
+                    success:true,
+                    address: user.homeAddress
+                }
+            } else {
+            console.log(`The homeAddress is not present in the database for user with email ${userEmail}`);
+                return {
+                    success:false,
+                }
+            }
+        })
+        .catch(error => {
+            console.error(`Error finding user with email ${userEmail}`);
+            console.error(error);
+            return {
+                success:false,
+            }
+        });
+    })
+
+    if(home.success){
+        return res.send({
+            "success":true,
+            "message":"Home address present",
+            "address": home.address
+        })
+    }else{
+        return res.send({
+            "success":false,
+            "message":"Home address not present",
+            "address":"N/A"
+        })
+    }
+})
+
 
 module.exports = router;
