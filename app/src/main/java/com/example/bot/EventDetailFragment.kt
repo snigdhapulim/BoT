@@ -11,12 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val TITLE = "param1"
+private const val ADDRESS = "param2"
+private const val DATE = "param3"
+private const val TIME = "param4"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -25,15 +29,19 @@ private const val ARG_PARAM2 = "param2"
  */
 class EventDetailFragment : DialogFragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var title: String? = null
+    private var address: String? = null
+    private var date: String? = null
+    private var time: String? = null
     private lateinit var edit_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            title = it.getString(TITLE)
+            address = it.getString(ADDRESS)
+            date = it.getString(DATE)
+            time = it.getString(TIME)
         }
     }
 
@@ -45,12 +53,24 @@ class EventDetailFragment : DialogFragment() {
         val view=inflater.inflate(R.layout.fragment_event_detail_fragment, container, false)
         getDialog()?.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         // Inflate the layout for this fragment
+        // Find TextViews
+        val titleTextView = view.findViewById<TextView>(R.id.title_text_view)
+        val addressTextView = view.findViewById<TextView>(R.id.address_text_view)
+        val dateTextView = view.findViewById<TextView>(R.id.date_text_view)
+        val timeTextView = view.findViewById<TextView>(R.id.time_text_view)
+
+        // Set text to the TextViews
+        titleTextView.text = title
+        addressTextView.text = address
+        dateTextView.text = date
+        timeTextView.text = time
+
         edit_button = view.findViewById(R.id.edit_button)
         edit_button.setOnClickListener{
             val intent = Intent((activity as MainActivity), EditEvent::class.java)
             (activity as MainActivity).startActivity(intent)
         }
-        return inflater.inflate(R.layout.fragment_event_detail_fragment, null, false)
+        return view
     }
 
     companion object {
@@ -64,11 +84,17 @@ class EventDetailFragment : DialogFragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(eventData: com.example.bot.network.EventData) =
             EventDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+                    putString(TITLE, eventData.summary.toString())
+                    putString(ADDRESS, eventData.location.toString())
+                    val dateComponents = eventData.start.dateTime.split("T")
+                    val dateString = dateComponents[0]
+                    putString(DATE, dateString)
+                    val timeString = eventData.start.dateTime.substring(11, 16)
+                    putString(TIME, timeString)
                 }
             }
     }

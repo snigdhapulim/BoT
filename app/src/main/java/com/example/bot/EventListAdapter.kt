@@ -16,27 +16,23 @@ class EventHolder(
     private val binding: FragmentEventBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(event: EventData) {
-        if(event.id > 2) {
-            // TODO : remove this hardcoded color and replace for a color in resources
-            val color = Color.argb(128, 0xB4, 0xD0, 0xC4)
-//                ContextCompat.getColor(binding.root.context, R.color.teal_700)
-            binding.eventCard.setBackgroundColor(color)
-        }
-        binding.title.text = event.title
-        binding.timeToLeave.text = event.timeToLeave
+    fun bind(event: com.example.bot.network.EventData) {
+        val dateTimeString = event.start.dateTime
+        val timeString = dateTimeString.substring(11, 16)
+        binding.time.text = timeString
+        binding.summary.text = event.summary
 
         binding.eventCard.setOnClickListener {
             // Todo open fragment for event details
             val fragmentManager = (binding.root.context as FragmentActivity).supportFragmentManager
-            val fragment = EventDetailFragment.newInstance(event.title, event.timeToLeave)
+            val fragment = EventDetailFragment.newInstance(event)
             fragment.show(fragmentManager, EventDetailFragment.toString())
         }
     }
 }
 
 class EventListAdapter(
-    private val events: List<EventData>
+    private val events: List<com.example.bot.network.EventData>
 ) : RecyclerView.Adapter<EventHolder>() {
 
     override fun onCreateViewHolder(

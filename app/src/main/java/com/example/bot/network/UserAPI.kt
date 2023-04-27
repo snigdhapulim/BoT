@@ -5,14 +5,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 import kotlin.reflect.jvm.internal.impl.util.Check
 
 private val BASE_URL =
-    "http://10.0.0.233:3000/api/android/"
+    "http://10.0.0.65:3000/api/android/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -61,5 +58,14 @@ class UserAPI {
             suspend fun updateAddress(@Body address: HomeAddress)
         }
 
+    interface FetchCalendarEventsService {
+        @POST("calender/event")
+        suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
+    }
+    public object FetchCalendarEventsAPI {
+        val retrofitFetchCalendarEventsService: FetchCalendarEventsService by lazy {
+            retrofit.create(FetchCalendarEventsService::class.java)
+        }
+    }
 
 }
