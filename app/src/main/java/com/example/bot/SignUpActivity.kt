@@ -110,6 +110,7 @@ class SignUpActivity : AppCompatActivity() {
 
                                 // Retrieve access token from SharedPreferences
                                 val accessToken = preferences.getString("access_token", null)
+                                Log.i("accessToken", accessToken.toString())
                             } catch (error: java.lang.Exception){
                                 Log.i("SignUp", error.toString())
                             }
