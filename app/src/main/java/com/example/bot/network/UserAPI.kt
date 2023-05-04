@@ -9,7 +9,7 @@ import retrofit2.http.*
 import kotlin.reflect.jvm.internal.impl.util.Check
 
 private val BASE_URL =
-    "http://10.0.0.65:3000/api/android/"
+    "https://bo-t-backend.vercel.app/api/android/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -59,7 +59,7 @@ class UserAPI {
         }
 
     interface FetchCalendarEventsService {
-        @POST("calender/event")
+        @POST("user/calender/event")
         suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
     }
     public object FetchCalendarEventsAPI {
