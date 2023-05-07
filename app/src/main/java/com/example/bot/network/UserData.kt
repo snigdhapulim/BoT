@@ -40,3 +40,7 @@ data class EmailRequestBody(
     @Json(name = "email") val email: String
 )
 
+data class EventCreateRequestBody(
+    @Json(name = "msg") val msg: String
+)
+

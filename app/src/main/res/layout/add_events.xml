@@ -185,7 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:text="Date &amp; Time"
+                            android:text="Start Date &amp; Time"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -195,31 +195,90 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="0dp">
-                            <EditText
+
+                            <Button
                                 android:id="@+id/add_Date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginRight="20dp"
                                 android:background="@drawable/edit_text_border"
                                 android:padding="8dp"
                                 android:drawableLeft="@drawable/date"
                                 android:textColor="@color/white"
-                                android:hint="mm/dd/yyyy"
-                                android:textColorHint="@color/placeholder"/>
+                                android:textColorHint="@color/placeholder"
+                                android:text="Date"
+                                android:minHeight="70dp"
+                                android:minWidth="100dp"/>
 
-                            <EditText
+                            <Button
                                 android:id="@+id/add_Time"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:background="@drawable/edit_text_border"
                                 android:padding="8dp"
+                                android:drawableLeft="@drawable/baseline_access_time_24"
                                 android:textColor="@color/white"
-                                android:hint="15:00  "
-                                android:textColorHint="@color/placeholder"/>
+                                android:textColorHint="@color/placeholder"
+                                android:text="Time"
+                                android:minHeight="70dp"
+                                android:layout_marginLeft="20dp"
+                                android:minWidth="100dp"/>
 
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical"
+                            android:padding="0dp">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:text="End Date &amp; Time"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="0dp">
+
+                                <Button
+                                    android:id="@+id/add_Date_end"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/edit_text_border"
+                                    android:padding="8dp"
+                                    android:drawableLeft="@drawable/date"
+                                    android:textColor="@color/white"
+                                    android:textColorHint="@color/placeholder"
+                                    android:text="Date"
+                                    android:minHeight="70dp"
+                                    android:minWidth="100dp"/>
+
+                                <Button
+                                    android:id="@+id/add_Time_end"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/edit_text_border"
+                                    android:padding="8dp"
+                                    android:drawableLeft="@drawable/baseline_access_time_24"
+                                    android:textColor="@color/white"
+                                    android:textColorHint="@color/placeholder"
+                                    android:text="Time"
+                                    android:minHeight="70dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:minWidth="100dp"/>
+
+                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"

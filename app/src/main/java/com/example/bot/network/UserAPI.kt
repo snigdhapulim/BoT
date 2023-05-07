@@ -23,6 +23,7 @@ val retrofit = Retrofit.Builder()
 class UserAPI {
     class User(private val name: String, private val email: String, private val authorization: String)
 
+    class Event(private val summary:String, private val email:String, private val description:String, private val startDateTime:String, private val endDateTime: String, private val location: String, private val access_token: String, private val origin:String)
     class HomeAddress(private val email:String, private val homeAddress: String)
 
         public object UserCreateAPI {
@@ -37,9 +38,21 @@ class UserAPI {
             }
         }
 
+        public object FetchCalendarEventsAPI {
+            val retrofitFetchCalendarEventsService: FetchCalendarEventsService by lazy {
+                retrofit.create(FetchCalendarEventsService::class.java)
+            }
+        }
+
         public object UpdateAddressAPI {
             val retrofitUpdateAddressService : UpdateAddressService by lazy {
                 retrofit.create(UpdateAddressService::class.java)
+            }
+        }
+
+        public object CreateEventAPI {
+            val retrofitCreateEventService : CreateEventService by lazy {
+                retrofit.create(CreateEventService::class.java)
             }
         }
 
@@ -58,14 +71,14 @@ class UserAPI {
             suspend fun updateAddress(@Body address: HomeAddress)
         }
 
-    interface FetchCalendarEventsService {
-        @POST("user/calender/event")
-        suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
-    }
-    public object FetchCalendarEventsAPI {
-        val retrofitFetchCalendarEventsService: FetchCalendarEventsService by lazy {
-            retrofit.create(FetchCalendarEventsService::class.java)
+        interface FetchCalendarEventsService {
+            @POST("user/calender/event")
+            suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
         }
+
+    interface CreateEventService {
+        @POST("calender/event/create")
+        suspend fun createEvent(@Body eventBody: Event) : EventCreateRequestBody
     }
 
 }
