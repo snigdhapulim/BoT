@@ -1,5 +1,6 @@
 package com.example.bot
 
+import MapRoutes
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.pm.ApplicationInfo
@@ -35,6 +36,8 @@ class AddEvent : AppCompatActivity() {
         binding = AddEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        var compactActivity = AppCompatActivity()
+
         autocomplete=findViewById(R.id.autoComplete)
         autoAdapter=ArrayAdapter<String>(this,R.layout.list_item,resources.getStringArray(R.array.repeating))
 
@@ -59,6 +62,12 @@ class AddEvent : AppCompatActivity() {
         val apiKey = value.toString()
 
         binding.back.setOnClickListener { finish() }
+
+        binding.next.setOnClickListener {
+            var mapRoutes:MapRoutes= MapRoutes()
+//            val fragmentManager = compactActivity.supportFragmentManager
+            mapRoutes.show(supportFragmentManager, "hello")
+        }
 
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, "AIzaSyAmjj4km9mc04VEvtj3mqVEYH6L7kc2vks")
