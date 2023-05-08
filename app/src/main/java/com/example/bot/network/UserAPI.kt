@@ -2,11 +2,12 @@ package com.example.bot.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import retrofit2.http.*
-import kotlin.reflect.jvm.internal.impl.util.Check
+import java.util.concurrent.TimeUnit
+
 
 private val BASE_URL =
     "https://frantic-costume-crow.cyclic.app/api/android/"
@@ -15,7 +16,12 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+var client: OkHttpClient = OkHttpClient.Builder()
+    .connectTimeout(100, TimeUnit.SECONDS)
+    .readTimeout(100, TimeUnit.SECONDS).build()
+
 val retrofit = Retrofit.Builder()
+    .client(client)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
@@ -56,6 +62,12 @@ class UserAPI {
             }
         }
 
+    public object RefreshTokenAPI {
+        val retrofitRefreshTokenService : RefreshToken by lazy {
+            retrofit.create(RefreshToken::class.java)
+        }
+    }
+
         interface USERAPICreateService {
             @POST("user/calender/add")
             suspend fun createUser(@Body() user:User): UserData
@@ -79,6 +91,11 @@ class UserAPI {
     interface CreateEventService {
         @POST("calender/event/create")
         suspend fun createEvent(@Body eventBody: Event) : EventCreateRequestBody
+    }
+
+    interface RefreshToken {
+        @GET("refresh-token/{email}")
+        suspend fun refreshToken(@Path("email") email: String) : UserData
     }
 
 }

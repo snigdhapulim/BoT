@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
@@ -141,8 +142,16 @@ class Profile : DialogFragment(){
                     // get the FragmentManager instance
                     val fragmentManager = requireActivity().supportFragmentManager
 
-                    // clear the back stack by popping all fragments
-                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    val fragments = fragmentManager.fragments
+
+                    Toast.makeText(requireContext(), "Added address successfully", Toast.LENGTH_SHORT).show()
+
+                    // Loop through the fragments and dismiss any that are dialog fragments
+                    for (fragment in fragments) {
+                        if (fragment is DialogFragment) {
+                            fragment.dismiss()
+                        }
+                    }
 
                 }
 

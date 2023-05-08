@@ -17,7 +17,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.bot.databinding.ActivityMainBinding
+import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -27,7 +32,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val acco = GoogleSignIn.getLastSignedInAccount(this)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                var loggedIn =
+                    UserAPI.RefreshTokenAPI.retrofitRefreshTokenService.refreshToken(acco?.email.toString())
+
+                Log.i("Main Activity", loggedIn.toString())
+                if (loggedIn.success.toString().toBoolean()) {
+                    Log.i(
+                        "Main Activity",
+                        "Logged in User Tokens: " + loggedIn.access_token.toString() + " : " + loggedIn.refresh_token.toString()
+                    )
+                    // Save access token to SharedPreferences
+                    val preferences =
+                        getSharedPreferences("bot_tokens", Context.MODE_PRIVATE)
+                    preferences.edit().putString(
+                        "access_token",
+                        loggedIn.access_token.toString()
+                    ).apply()
+
+                    preferences.edit().putString(
+                        "refresh_token",
+                        loggedIn.refresh_token.toString()
+                    ).apply()
+                } else {
+                    Log.i("Main Activity", "No success")
+                }
+            } catch (error: java.lang.Exception) {
+                Log.i("Main Activity", error.toString())
+            }
+            setContentView(binding.root)
+        }
 
 //        val intent = Intent(applicationContext, PushNotificationService::class.java)
 //        startService(intent)
@@ -38,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val acco = GoogleSignIn.getLastSignedInAccount(this)
+        }
         // Set up the alarm manager
 //        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 //
@@ -62,7 +98,5 @@ class MainActivity : AppCompatActivity() {
 //            interval.toLong(),
 //            pendingIntent
 //        )
-        Log.i("Main Activity", "The token already existing is " + acco?.serverAuthCode)
-    }
 
 }

@@ -101,7 +101,7 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
 
 //                        runBlocking {
-                            CoroutineScope(Dispatchers.Main).async{
+                            CoroutineScope(Dispatchers.Main).launch{
                                 var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
                                 Log.i("SignUp", "Reached here atleast")
                                 try {
