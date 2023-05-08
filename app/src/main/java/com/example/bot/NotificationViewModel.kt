@@ -23,7 +23,7 @@ class NotificationViewModel : ViewModel() {
         }
     }
 
-    fun getAlerts() {
+    private fun getAlerts() {
         mbtaApi.getAlerts().enqueue(object : Callback<AlertResponse?> {
             override fun onResponse(
                 call: Call<AlertResponse?>,
@@ -34,9 +34,9 @@ class NotificationViewModel : ViewModel() {
 
                 responseDataList?.forEach {
                     val content = NotificationContent(
-                        it.attributes.service_effect,
-                        it.attributes.short_header,
-                        it.attributes.updated_at.substring(0,16) )
+                        it.attributes.service_effect, // main content of notification
+                        it.attributes.short_header, // short header of notification
+                        it.attributes.updated_at.substring(0,16) ) // update time
 
                     notificationContentList.add(content)
                 }

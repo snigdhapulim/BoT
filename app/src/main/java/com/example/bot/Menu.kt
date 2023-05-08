@@ -4,6 +4,7 @@ package com.example.bot
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
@@ -129,10 +130,10 @@ class Menu() : DialogFragment() {
 
         if (currentActivity is MainActivity) {
             // Call the activity method
-            add_event_button.setBackground(resources.getDrawable(R.drawable.active_menu_background))
+            add_event_button.setBackground(context?.getDrawable(R.drawable.active_menu_background))
             compactActivity = (activity as MainActivity)
         } else if(currentActivity is EventsViewActivity) {
-            events_button.setBackground(resources.getDrawable(R.drawable.active_menu_background))
+            events_button.setBackground(context?.getDrawable(R.drawable.active_menu_background))
             compactActivity = (activity as EventsViewActivity)
         } else if(currentActivity is AddEvent) {
             compactActivity = (activity as AddEvent)

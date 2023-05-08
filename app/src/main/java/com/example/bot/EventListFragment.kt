@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bot.databinding.FragmentEventListBinding
+import com.example.bot.network.EmailRequestBody
+import com.example.bot.network.UserAPI
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.launch
 
 private const val TAG = "EventListFragment"
 
@@ -24,7 +29,22 @@ class EventListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "Total events: ${eventListViewModel.events.size}")
+        val acco = GoogleSignIn.getLastSignedInAccount(requireContext())
+        val email = acco?.email.toString()
+        Log.d(TAG, "Email: ${email}")
+        eventListViewModel.viewModelScope.launch {
+            val requestBody = EmailRequestBody(email)
+            val events = UserAPI.FetchCalendarEventsAPI.retrofitFetchCalendarEventsService.fetchCalendarEvents(requestBody)
+            eventListViewModel.eventList.clear()
+            eventListViewModel.eventList.addAll(events)
+            eventListViewModel.setOnEventListChangedListener(object : EventListViewModel.OnEventListChangedListener {
+                override fun onEventListChanged(events: List<com.example.bot.network.EventData>) {
+                    val adapter = EventListAdapter(events)
+                    binding.eventRecyclerView.adapter = adapter
+                }
+            })
+            Log.d(TAG, "Total events: ${eventListViewModel.eventList.size}")
+        }
     }
 
     override fun onCreateView(
@@ -34,11 +54,6 @@ class EventListFragment: Fragment() {
     ): View? {
         _binding = FragmentEventListBinding.inflate(inflater, container, false)
         binding.eventRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        val events = eventListViewModel.events
-        val adapter = EventListAdapter(events)
-        binding.eventRecyclerView.adapter = adapter
-
         return binding.root
     }
     override fun onDestroyView() {

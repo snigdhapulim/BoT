@@ -48,6 +48,7 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <TextView
+                android:id="@+id/time_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="6:30"
@@ -66,6 +67,7 @@
 
 
         <TextView
+            android:id="@+id/title_text_view"
             android:layout_width="220dp"
             android:layout_height="49dp"
             android:text="MOBILE APP DEV 501"
@@ -96,6 +98,7 @@
                 android:src="@drawable/map_marker" />
 
             <TextView
+                android:id="@+id/address_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -123,6 +126,7 @@
                 android:src="@drawable/calendar_12" />
 
             <TextView
+                android:id="@+id/date_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

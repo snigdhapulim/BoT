@@ -38,12 +38,12 @@
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/events_view"
-                android:name="com.example.bot.EventListFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_event_list" />
+<!--            <androidx.fragment.app.FragmentContainerView-->
+<!--                android:id="@+id/events_view"-->
+<!--                android:name="com.example.bot.EventListFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                tools:layout="@layout/fragment_event_list" />-->
 
         </LinearLayout>
 

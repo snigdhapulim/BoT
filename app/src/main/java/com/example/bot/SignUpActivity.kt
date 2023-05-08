@@ -19,10 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -70,6 +67,10 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        // push notifications
+        val intent = Intent(applicationContext, PushNotificationService::class.java)
+        startService(intent)
     }
 
 
@@ -95,33 +96,63 @@ class SignUpActivity : AppCompatActivity() {
 //                val token = account?.idToken
 
                     val acco = GoogleSignIn.getLastSignedInAccount(this)
-                    if (acco!=null){
+                var isLoggedIn = false;
+                if (acco!=null){
                         Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
-                        CoroutineScope(Dispatchers.Main).launch{
-                            var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
-                            Log.i("SignUp", "Reached here atleast")
-                            try {
-                                var loggedIn =
-                                    UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
-                                Log.i("SignUp", "Logged in User Tokens: " + loggedIn.access_token.toString() + " : " + loggedIn.refresh_token.toString())
-                                // Save access token to SharedPreferences
-                                val preferences = getSharedPreferences("bot_tokens", Context.MODE_PRIVATE)
-                                preferences.edit().putString("access_token", loggedIn.access_token.toString()).apply()
 
-                                // Retrieve access token from SharedPreferences
-                                val accessToken = preferences.getString("access_token", null)
-                            } catch (error: java.lang.Exception){
-                                Log.i("SignUp", error.toString())
-                            }
+//                        runBlocking {
+                            CoroutineScope(Dispatchers.Main).launch{
+                                var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
+                                Log.i("SignUp", "Reached here atleast")
+                                try {
+                                    var loggedIn =
+                                        UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
+                                    val context = withContext(Dispatchers.Main) {
+                                        this@SignUpActivity
+                                    }
+                                    if(loggedIn.success.toString().toBoolean()) {
+                                        Log.i(
+                                            "SignUp",
+                                            "Logged in User Tokens: " + loggedIn.access_token.toString() + " : " + loggedIn.refresh_token.toString()
+                                        )
+                                        // Save access token to SharedPreferences
+                                        val preferences =
+                                            getSharedPreferences("bot_tokens", Context.MODE_PRIVATE)
+                                        preferences.edit().putString(
+                                            "access_token",
+                                            loggedIn.access_token.toString()
+                                        ).apply()
+
+                                        preferences.edit().putString(
+                                            "refresh_token",
+                                            loggedIn.refresh_token.toString()
+                                        ).apply()
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        startActivity(intent)
+                                        // Retrieve access token from SharedPreferences
+//                                        val accessToken =
+//                                            preferences.getString("access_token", null)
+//                                        Log.i("accessToken", accessToken.toString())
+                                    }else{
+                                        Log.i("Signup","Something went wrong")
+                                        Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
+                                            .show()
+
+                                        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                            .requestEmail()
+                                            .build()
+                                        var mGoogleSignInClient = GoogleSignIn.getClient(context, gso)
+                                        mGoogleSignInClient.signOut()
+                                    }
+                                } catch (error: java.lang.Exception){
+                                    Log.i("SignUp", error.toString())
+                                }
+//                            }.await()
                         }
                     }
                 Log.d("Signup",data.toString())
                 println("result "+data.toString())
 //                navigateToSecondActivity()
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-
             } catch (e: ApiException) {
                 Log.d("Signup","oh no")
                 e.printStackTrace()

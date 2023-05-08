@@ -3,6 +3,7 @@ package com.example.bot
 import MapRoutes
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,13 @@ class AddEvent : AppCompatActivity() {
     private lateinit var datePickerEditText: EditText
     private lateinit var addTimeEditText: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
+        var selectedStartDateTimeString = ""
+        var selectedEndDateTimeString = ""
+        var selectedDate:String = ""
+        var selectedTime:String = ""
+        var departure:String = ""
+        var arrival:String = ""
+
         super.onCreate(savedInstanceState)
         binding = AddEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -74,10 +82,13 @@ class AddEvent : AppCompatActivity() {
         }
 
         // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment =
-            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment)
+        val autocompleteFragmentDep =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_dep)
                     as AutocompleteSupportFragment
 
+        val autocompleteFragmentArr =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment)
+                    as AutocompleteSupportFragment
         // Initialize the AutocompleteSupportFragment.
         val autocompleteFragmentDes =
             supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_dep)
@@ -96,11 +107,13 @@ class AddEvent : AppCompatActivity() {
         autocompleteFragment.setLocationRestriction(RectangularBounds.newInstance(bostonLatLngBounds))
         autocompleteFragmentDes.setLocationRestriction(RectangularBounds.newInstance(bostonLatLngBounds))
 
+
         // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+        autocompleteFragmentArr.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 Log.i("Add Event", "Place: ${place.name}, ${place.id}, ${place.address}")
+                arrival = place.address
             }
 
             override fun onError(status: Status) {
@@ -108,8 +121,6 @@ class AddEvent : AppCompatActivity() {
                 Log.i("Add Event", "An error occurred: $status")
             }
         })
-
-
         autocompleteFragmentDes.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
@@ -153,8 +164,6 @@ class AddEvent : AppCompatActivity() {
 
             timePickerDialog.show()
         }
-
-
     }
 
 }
