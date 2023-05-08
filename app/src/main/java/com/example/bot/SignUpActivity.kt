@@ -70,6 +70,10 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        // push notifications
+        val intent = Intent(applicationContext, PushNotificationService::class.java)
+        startService(intent)
     }
 
 

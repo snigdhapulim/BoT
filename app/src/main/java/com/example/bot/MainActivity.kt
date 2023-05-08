@@ -1,16 +1,25 @@
 package com.example.bot
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.bot.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +28,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        val intent = Intent(applicationContext, PushNotificationService::class.java)
+//        startService(intent)
     }
+
+
+
 
     override fun onResume() {
         super.onResume()
@@ -49,4 +64,5 @@ class MainActivity : AppCompatActivity() {
 //        )
         Log.i("Main Activity", "The token already existing is " + acco?.serverAuthCode)
     }
+
 }
