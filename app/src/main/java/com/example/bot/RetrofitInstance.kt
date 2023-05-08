@@ -13,7 +13,6 @@ object RetrofitInstance {
             .addConverterFactory((GsonConverterFactory.create()))
             .build()
     }
-
     val mbtaApi by lazy {
         retrofit.create(MbtaApi::class.java)
     }
