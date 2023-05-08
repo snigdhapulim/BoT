@@ -9,7 +9,7 @@ import retrofit2.http.*
 import kotlin.reflect.jvm.internal.impl.util.Check
 
 private val BASE_URL =
-    "https://bo-t-backend.vercel.app/api/android/"
+    "https://frantic-costume-crow.cyclic.app/api/android/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
