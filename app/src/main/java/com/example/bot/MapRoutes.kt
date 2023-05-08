@@ -67,34 +67,6 @@ class MapRoutes : DialogFragment() {
                 println()
             }
 
-// Print the distance and duration of the first route
-//            directionsResult.routes.map { route -> {
-//                route.map { leg -> {
-//
-//                }}
-//                Log.i("Map ROutes Legs", route.toString())
-//            } }
-//            val route = directionsResult.routes[0]
-//            val legs = route.legs[0]
-//            val distance = legs.distance
-//            val duration = legs.duration
-//
-//            Log.i("Map Routes","Distance: ${distance.humanReadable}, Duration: ${duration.humanReadable}")
-//
-//// Print the transit details of the first leg
-//            val steps = legs.steps
-//            for (i in steps.indices) {
-//                val step = steps[i]
-//                if (step.travelMode == TravelMode.TRANSIT) {
-//                    val transitDetails = step.transitDetails
-//                    println("${i + 1}. Take the ${transitDetails.line.shortName} ${transitDetails.headsign}")
-//                    println("    Depart from ${transitDetails.departureStop.name} at ${transitDetails.departureTime}")
-//                    println("    Arrive at ${transitDetails.arrivalStop.name} at ${transitDetails.arrivalTime}")
-//                } else {
-//                    println("${i + 1}. ${step.htmlInstructions}")
-//                }
-//            }
-            // Use the directionsResult object to get the route information
         }
 
         // return a view object
