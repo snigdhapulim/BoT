@@ -37,6 +37,8 @@ class AppBar : Fragment() {
         } else if(currentActivity is EventsViewActivity) {
             compactActivity = (activity as EventsViewActivity)
         } else if(currentActivity is AddEvent) {
+            var addEventButton = view.findViewById<ImageButton>(R.id.for_add_event)
+            addEventButton.visibility = View.GONE
             compactActivity = (activity as AddEvent)
         } else if(currentActivity is EditEvent) {
             compactActivity = (activity as EditEvent)
