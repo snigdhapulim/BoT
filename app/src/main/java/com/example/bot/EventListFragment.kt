@@ -1,6 +1,7 @@
 package com.example.bot
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +18,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.*
 
 private const val TAG = "EventListFragment"
+
 
 class EventListFragment: Fragment() {
 
     private var _binding: FragmentEventListBinding? = null
+    private lateinit var tts:TextToSpeech
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -35,17 +39,26 @@ class EventListFragment: Fragment() {
         val acco = GoogleSignIn.getLastSignedInAccount(requireContext())
         val email = acco?.email.toString()
         Log.d(TAG, "Email: ${email}")
+        tts = TextToSpeech(requireContext()) {
+            Log.i("MainActivity", "onCreate: $it")
+        }
+        tts.language = Locale.US
         eventListViewModel.viewModelScope.launch {
             val requestBody = EmailRequestBody(email)
-            val events = UserAPI.FetchCalendarEventsAPI.retrofitFetchCalendarEventsService.fetchCalendarEvents(requestBody)
+            val events =
+                UserAPI.FetchCalendarEventsAPI.retrofitFetchCalendarEventsService.fetchCalendarEvents(
+                    requestBody
+                )
             eventListViewModel.eventList.clear()
             eventListViewModel.eventList.addAll(events)
-            eventListViewModel.setOnEventListChangedListener(object : EventListViewModel.OnEventListChangedListener {
+            eventListViewModel.setOnEventListChangedListener(object :
+                EventListViewModel.OnEventListChangedListener {
                 override fun onEventListChanged(events: List<com.example.bot.network.EventData>) {
-                    val adapter = EventListAdapter(events)
+                    val adapter = EventListAdapter(events, tts!!)
                     binding.eventRecyclerView.adapter = adapter
                 }
             })
+
             Log.d(TAG, "Total events: ${eventListViewModel.eventList.size}")
         }
     }
@@ -53,6 +66,9 @@ class EventListFragment: Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         // cancel all coroutines when activity is destroyed
+        if(tts!=null){
+            tts.shutdown()
+        }
         CoroutineScope(Dispatchers.Main).cancel()
     }
 
