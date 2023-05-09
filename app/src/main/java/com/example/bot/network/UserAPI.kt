@@ -23,7 +23,7 @@ val retrofit = Retrofit.Builder()
 class UserAPI {
     class User(private val name: String, private val email: String, private val authorization: String)
 
-    class Event(private val summary:String, private val email:String, private val description:String, private val startDateTime:String, private val endDateTime: String, private val location: String, private val access_token: String, private val legsData: Array<String>, private val duration: String, private val distance: String, private val repeat: String)
+    class Event(private val summary:String, private val email:String, private val description:String, private val startDateTime:String, private val endDateTime: String, private val location: String, private val access_token: String, private val legsData: List<String>, private val duration: String, private val distance: String, private val repeat: String)
     class HomeAddress(private val email:String, private val homeAddress: String)
 
         public object UserCreateAPI {

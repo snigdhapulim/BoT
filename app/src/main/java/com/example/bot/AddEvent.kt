@@ -85,6 +85,7 @@ class AddEvent : AppCompatActivity() {
                     putString("location", destination)
                     putString("time", binding.addTime.text.toString())
                     putString("startLocation", startLocation)
+                    putString("repeat", binding.autoComplete.text.toString())
                 }
                 mapRoutes.arguments = args
                 mapRoutes.show(supportFragmentManager, "hello")

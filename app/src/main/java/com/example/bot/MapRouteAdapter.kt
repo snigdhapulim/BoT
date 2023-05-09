@@ -100,11 +100,12 @@ class MapRouteAdapter(private val routes: Array<DirectionsRoute>) : RecyclerView
     }
 
     // Public method to get the current selected position
-    fun getSelectedPosition(): Triple<Double, Long, List<DirectionsStep>> {
+    fun getSelectedPosition(): Triple<Double, Long, List<String>> {
         var distance=routes[selectedPosition].legs.sumOf { it.distance.inMeters } / 1000.0
         var duration=routes[selectedPosition].legs.sumOf { it.duration.inSeconds } / 60
         var steps=routes[selectedPosition].legs.flatMap { it.steps.toList() }
-        return Triple(distance,duration,steps)
+        var stepsStr = steps.map {it.toString()}
+        return Triple(distance,duration,stepsStr)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
