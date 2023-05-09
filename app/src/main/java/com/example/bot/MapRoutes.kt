@@ -23,10 +23,7 @@ import com.google.maps.model.TravelMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.Duration
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -50,12 +47,17 @@ class MapRoutes : DialogFragment() {
         arguments?.let {
             summary = it.getString("summary").toString()
             startDateTime = it.getString("startDateTime").toString().plus(" ").plus(it.getString("time"))
-            val formatter = DateTimeFormatter.ofPattern("yyyy/M/d H:mm")
+            Log.i("jjj",startDateTime)
+            val formatter = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm")
             val localDateTime = LocalDateTime.parse(startDateTime, formatter)
-            startDateTimeInstant = localDateTime.atZone(ZoneId.systemDefault()).toInstant()
+            Log.i("jjj",localDateTime.toString())
+            startDateTimeInstant = localDateTime.toInstant(ZoneOffset.UTC)
+            Log.i("jjj", startDateTimeInstant.toString())
             location = it.getString("location").toString()
             startLocation = it.getString("startLocation").toString()
             repeat=it.getString("repeat").toString()
+
+
         }
     }
 
@@ -93,7 +95,7 @@ class MapRoutes : DialogFragment() {
             val preferences = requireContext().getSharedPreferences("bot_tokens", Context.MODE_PRIVATE)
             var accTocken=preferences.getString("access_token", null)
             val endDateTime = startDateTimeInstant.plus(Duration.ofHours(1))
-            var events=UserAPI.Event(summary,acc?.email.toString(),"description",
+            var events=UserAPI.Event(summary,acc?.email.toString(),summary,
                 startDateTimeInstant.toString(),endDateTime.toString(),location,accTocken.toString(),steps,
                 duration.toString(),distance.toString(),repeat)
             //
