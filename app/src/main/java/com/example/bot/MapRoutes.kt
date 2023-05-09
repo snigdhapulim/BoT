@@ -81,6 +81,7 @@ class MapRoutes : DialogFragment() {
         //val currentPosition = myAdapter.getSelectedPosition()
         submitEvent.setOnClickListener {
             val (distance,duration,steps)=myAdapter.getSelectedPosition()
+            // ""
         }
 
         return view
