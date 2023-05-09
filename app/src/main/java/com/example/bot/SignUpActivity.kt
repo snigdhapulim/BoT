@@ -105,7 +105,6 @@ class SignUpActivity : AppCompatActivity() {
                 var isLoggedIn = false;
                 if (acco!=null){
                         Toast.makeText(this,"Welcome, " + acco.displayName, Toast.LENGTH_SHORT).show()
-
 //                        runBlocking {
                             CoroutineScope(Dispatchers.Main).async{
                                 var user = UserAPI.User(acco.displayName.toString(), acco.email.toString(), acco.serverAuthCode.toString())
@@ -113,6 +112,7 @@ class SignUpActivity : AppCompatActivity() {
                                 try {
                                     var loggedIn =
                                         UserAPI.UserCreateAPI.retrofitCreateUserService.createUser(user)
+
                                     val context = withContext(Dispatchers.Main) {
                                         this@SignUpActivity
                                     }
@@ -133,7 +133,10 @@ class SignUpActivity : AppCompatActivity() {
                                             "refresh_token",
                                             loggedIn.refresh_token.toString()
                                         ).apply()
-                                        val intent = Intent(context, MainActivity::class.java)
+
+                                        val intent = Intent(context, SplashScreenActivity::class.java)
+                                        intent.putExtra("first", false)
+                                        intent.putExtra("main", true)
                                         startActivity(intent)
                                         // Retrieve access token from SharedPreferences
 //                                        val accessToken =

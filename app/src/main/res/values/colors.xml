@@ -20,4 +20,8 @@
     <color name="green__">#A4083305</color>
     <color name="green____">#33164A0A</color>
     <color name="placeholder">#9AFFFFFF</color>
+    <color name="colorPrimary">#FF03DAC5</color>
+    <color name="colorPrimaryDark">#A9023939</color>
+    <color name="colorAccent">#FF03DAC5</color>
+    <color name="colorAccentDark">#A9023939</color>
 </resources>
