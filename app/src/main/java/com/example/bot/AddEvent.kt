@@ -7,11 +7,14 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
 import androidx.compose.material3.Button
+import androidx.fragment.app.clearFragmentResult
+import androidx.fragment.app.clearFragmentResultListener
 import com.example.bot.databinding.ActivityMainBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
@@ -29,10 +32,9 @@ import java.util.*
 
 class AddEvent : AppCompatActivity() {
     private lateinit var autoAdapter: ArrayAdapter<String>
-    private lateinit var autocomplete:AutoCompleteTextView
     private lateinit var binding: AddEventsBinding
-    private lateinit var datePickerEditText: EditText
-    private lateinit var addTimeEditText: EditText
+    private  var startLocation: String? = null
+    private  var destination: String? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -44,23 +46,21 @@ class AddEvent : AppCompatActivity() {
         binding = AddEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        var compactActivity = AppCompatActivity()
-
-        autocomplete=findViewById(R.id.autoComplete)
+        //var compactActivity = AppCompatActivity()
         autoAdapter=ArrayAdapter<String>(this,R.layout.list_item,resources.getStringArray(R.array.repeating))
 
-        autocomplete.setAdapter(autoAdapter)
+        binding.autoComplete.setAdapter(autoAdapter)
 
         Log.d("TAG", "adapter: $autoAdapter")
 
-        autocomplete.setOnItemClickListener { parent, view, position, id ->
+        binding.autoComplete.setOnItemClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             Log.d("TAG", "Selected Item: $selectedItem")
             Toast.makeText(this, "Selected Item: $selectedItem", Toast.LENGTH_SHORT).show()
         }
 
-        autocomplete.setOnTouchListener { v, event ->
-            autocomplete.showDropDown()
+        binding.autoComplete.setOnTouchListener { v, event ->
+            binding.autoComplete.showDropDown()
             false
         }
 
@@ -72,9 +72,23 @@ class AddEvent : AppCompatActivity() {
         binding.back.setOnClickListener { finish() }
 
         binding.next.setOnClickListener {
-            var mapRoutes = MapRoutes()
-//            val fragmentManager = compactActivity.supportFragmentManager
-            mapRoutes.show(supportFragmentManager, "hello")
+
+            if (binding.addTitle.text.isNullOrEmpty() ||
+                binding.addTime.text.isNullOrEmpty() ||
+                binding.addDate.text.isNullOrEmpty() || destination.isNullOrEmpty() || startLocation.isNullOrEmpty()) {
+                Toast.makeText(this, "Please enter all information", Toast.LENGTH_SHORT).show()
+            } else {
+                var mapRoutes = MapRoutes()
+                val args = Bundle().apply {
+                    putString("summary", binding.addTitle.text.toString())
+                    putString("startDateTime", binding.addDate.text.toString())
+                    putString("location", destination)
+                    putString("time", binding.addTime.text.toString())
+                    putString("startLocation", startLocation)
+                }
+                mapRoutes.arguments = args
+                mapRoutes.show(supportFragmentManager, "hello")
+            }
         }
 
         if (!Places.isInitialized()) {
@@ -109,6 +123,7 @@ class AddEvent : AppCompatActivity() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 Log.i("Add Event", "Place: ${place.name}, ${place.id}, ${place.address}")
+                startLocation=place.address
             }
 
             override fun onError(status: Status) {
@@ -122,6 +137,7 @@ class AddEvent : AppCompatActivity() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 Log.i("Add Event", "Place of destination: ${place.name}, ${place.id}, ${place.address}")
+                destination=place.address
             }
 
             override fun onError(status: Status) {
@@ -131,24 +147,22 @@ class AddEvent : AppCompatActivity() {
         })
 
 
-        datePickerEditText = binding.addDate
-        addTimeEditText=binding.addTime
         val calendar = Calendar.getInstance()
 
-        datePickerEditText.setOnClickListener {
+        binding.addDate.setOnClickListener {
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
             val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
                 val selectedDate = "$selectedYear/${selectedMonth + 1}/$selectedDay"
-                datePickerEditText.setText(selectedDate)
+                binding.addDate.setText(selectedDate)
             }, year, month, day)
 
             datePickerDialog.show()
         }
 
-        addTimeEditText.setOnClickListener {
+        binding.addTime.setOnClickListener {
             val currentTime = Calendar.getInstance()
             val hour = currentTime.get(Calendar.HOUR_OF_DAY)
             val minute = currentTime.get(Calendar.MINUTE)
@@ -156,7 +170,7 @@ class AddEvent : AppCompatActivity() {
             val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
                 // Do something with the selected time
                 val selectedTime = "%02d:%02d".format(selectedHour, selectedMinute)
-                addTimeEditText.setText(selectedTime)
+                binding.addTime.setText(selectedTime)
             }, hour, minute, true)
 
             timePickerDialog.show()

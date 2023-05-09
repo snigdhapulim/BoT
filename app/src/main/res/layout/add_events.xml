@@ -117,7 +117,7 @@
                                     android:src="@drawable/event_loc"
                                     android:paddingLeft="10dp"
                                     />
-                                <fragment android:id="@+id/autocomplete_fragment"
+                                <fragment android:id="@+id/autocomplete_fragment_dep"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
@@ -160,11 +160,12 @@
                                 android:src="@drawable/dep_loc"
                                 android:paddingLeft="10dp"
                                 />
-                            <fragment android:id="@+id/autocomplete_fragment_dep"
+                            <fragment android:id="@+id/autocomplete_fragment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+
                                 />
 
 

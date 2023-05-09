@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.maps.model.DirectionsRoute
+import com.google.maps.model.DirectionsStep
 import com.google.maps.model.TravelMode
 import okhttp3.Route
 import org.w3c.dom.Text
@@ -96,6 +97,14 @@ class MapRouteAdapter(private val routes: Array<DirectionsRoute>) : RecyclerView
 
     override fun getItemCount(): Int {
         return routes.size
+    }
+
+    // Public method to get the current selected position
+    fun getSelectedPosition(): Triple<Double, Long, List<DirectionsStep>> {
+        var distance=routes[selectedPosition].legs.sumOf { it.distance.inMeters } / 1000.0
+        var duration=routes[selectedPosition].legs.sumOf { it.duration.inSeconds } / 60
+        var steps=routes[selectedPosition].legs.flatMap { it.steps.toList() }
+        return Triple(distance,duration,steps)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
