@@ -56,6 +56,12 @@ class UserAPI {
             }
         }
 
+    public object RefreshTokenApi {
+        val retrofitRefreshTokenService: RefreshTokenService by lazy {
+            retrofit.create(RefreshTokenService::class.java)
+        }
+    }
+
         interface USERAPICreateService {
             @POST("user/calender/add")
             suspend fun createUser(@Body() user:User): UserData
@@ -79,6 +85,11 @@ class UserAPI {
     interface CreateEventService {
         @POST("calender/event/create")
         suspend fun createEvent(@Body eventBody: Event) : EventCreateRequestBody
+    }
+
+    interface RefreshTokenService {
+        @GET("refresh-token/{email}")
+        suspend fun refreshToken(@Path("email") email: String) : UserData
     }
 
 }

@@ -7,6 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bot.RetrofitInstance.mbtaApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,6 +25,12 @@ class NotificationViewModel : ViewModel() {
             getAlerts()
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        CoroutineScope(Dispatchers.Main).cancel()
+    }
+
 
     private fun getAlerts() {
         mbtaApi.getAlerts().enqueue(object : Callback<AlertResponse?> {
