@@ -22,23 +22,32 @@
         android:gravity="center"
         android:layout_marginBottom="10dp">
 
-        <RadioGroup
-            android:id="@+id/radio_group_routes"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_title"
-            android:orientation="vertical">
+            android:text="Please select your prefered route"
+            android:textColor="@color/white"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/map_routes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/routes_list_item" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/map_routes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="1000dp"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/routes_list_item" />
 
-        </RadioGroup>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add event"
+            android:layout_gravity="center"/>
+
 
     </LinearLayout>
 

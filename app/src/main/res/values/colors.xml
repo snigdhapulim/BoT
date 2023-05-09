@@ -7,6 +7,7 @@
     <color name="teal_700">#A9023939</color>
     <color name="black">#FF000000</color>
     <color name="black_transparent">#B2837C7A</color>
+    <color name="black_transparent_list_route">#807A78</color>
     <color name="black_non_transparent">#837C7A</color>
     <color name="grey">#837C7A</color>
     <color name="op_black">#837C7A</color>
@@ -20,4 +21,5 @@
     <color name="green__">#A4083305</color>
     <color name="green____">#33164A0A</color>
     <color name="placeholder">#9AFFFFFF</color>
+    <color name="list_of_routes">#DCE1E3</color>
 </resources>
