@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
@@ -27,6 +28,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,6 +66,12 @@ class Profile : DialogFragment(){
 //        param1 = z;
 //
 //    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel all coroutines when activity is destroyed
+        CoroutineScope(Dispatchers.Main).cancel()
+    }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -141,8 +149,16 @@ class Profile : DialogFragment(){
                     // get the FragmentManager instance
                     val fragmentManager = requireActivity().supportFragmentManager
 
+                    Toast.makeText(requireContext(), "Successfully updated address", Toast.LENGTH_SHORT)
                     // clear the back stack by popping all fragments
-                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    fragmentManager.fragments.forEach { fragment ->
+                        if (fragment is DialogFragment) {
+                            fragment.dismiss()
+                        }
+                    }
+
+
+//                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                 }
 

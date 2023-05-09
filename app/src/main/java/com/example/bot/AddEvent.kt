@@ -22,6 +22,9 @@ import com.example.bot.databinding.AddEventsBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.libraries.places.api.model.RectangularBounds
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import java.util.*
 
 class AddEvent : AppCompatActivity() {
@@ -30,6 +33,12 @@ class AddEvent : AppCompatActivity() {
     private lateinit var binding: AddEventsBinding
     private lateinit var datePickerEditText: EditText
     private lateinit var addTimeEditText: EditText
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel all coroutines when activity is destroyed
+        CoroutineScope(Dispatchers.Main).cancel()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = AddEventsBinding.inflate(layoutInflater)

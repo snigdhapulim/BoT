@@ -17,17 +17,38 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.bot.databinding.ActivityMainBinding
+import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel all coroutines when activity is destroyed
+        CoroutineScope(Dispatchers.Main).cancel()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val acco = GoogleSignIn.getLastSignedInAccount(this)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                var loggedIn =
+                    UserAPI.RefreshTokenApi.retrofitRefreshTokenService.refreshToken(acco?.email.toString())
+
+                Log.i("Main Activity", "User tokens are ${loggedIn.access_token} : ${loggedIn.refresh_token}")
+            } catch (e: java.lang.Exception){
+                e.printStackTrace()
+                Toast.makeText(applicationContext, "Something went wrong, please logout and login again", Toast.LENGTH_SHORT).show()
+            }
+        }
 
 //        val intent = Intent(applicationContext, PushNotificationService::class.java)
 //        startService(intent)
@@ -38,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val acco = GoogleSignIn.getLastSignedInAccount(this)
         // Set up the alarm manager
 //        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 //
@@ -62,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 //            interval.toLong(),
 //            pendingIntent
 //        )
-        Log.i("Main Activity", "The token already existing is " + acco?.serverAuthCode)
+//        Log.i("Main Activity", "The token already existing is " + acco?.serverAuthCode)
     }
 
 }

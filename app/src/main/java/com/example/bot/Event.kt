@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -14,6 +17,12 @@ import android.view.ViewGroup
  * create an instance of this fragment.
  */
 class Event : Fragment() {
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel all coroutines when activity is destroyed
+        CoroutineScope(Dispatchers.Main).cancel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

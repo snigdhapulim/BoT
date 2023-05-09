@@ -13,6 +13,9 @@ import com.example.bot.databinding.FragmentEventListBinding
 import com.example.bot.network.EmailRequestBody
 import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 private const val TAG = "EventListFragment"
@@ -45,6 +48,12 @@ class EventListFragment: Fragment() {
             })
             Log.d(TAG, "Total events: ${eventListViewModel.eventList.size}")
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel all coroutines when activity is destroyed
+        CoroutineScope(Dispatchers.Main).cancel()
     }
 
     override fun onCreateView(
