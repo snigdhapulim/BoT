@@ -22,14 +22,23 @@
         android:gravity="center"
         android:layout_marginBottom="10dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/map_routes"
+        <RadioGroup
+            android:id="@+id/radio_group_routes"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/routes_list_item" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_title"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/map_routes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/routes_list_item" />
+
+        </RadioGroup>
 
     </LinearLayout>
 
