@@ -32,6 +32,11 @@ class NotificationAdapter(private var nList: List<NotificationContent>) : Recycl
         return nList.size
     }
 
+    fun setData(newData: List<NotificationContent>) {
+        nList = newData
+        notifyDataSetChanged()
+    }
+
 
     // Define a view holder to hold references to each item view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
