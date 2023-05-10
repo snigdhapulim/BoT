@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
 
-class NotificationAdapter(private var nList: List<NotificationContent>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>(){
+class NotificationAdapter(var nList: List<NotificationContent>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>(){
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

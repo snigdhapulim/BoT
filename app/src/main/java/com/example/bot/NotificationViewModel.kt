@@ -50,6 +50,7 @@ class NotificationViewModel : ViewModel() {
         })
     }
 
+
 }
 
 //interface MbtaApi {
