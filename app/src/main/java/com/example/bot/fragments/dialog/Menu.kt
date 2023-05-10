@@ -1,17 +1,11 @@
-package com.example.bot
+package com.example.bot.fragments.dialog
 
 //import RetrieveCalendarEventsTask
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,12 +15,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.bot.R
+import com.example.bot.activities.*
 import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -150,7 +145,7 @@ class Menu() : DialogFragment() {
 
 
         profile_button.setOnClickListener{
-            var profile:Profile= Profile()
+            var profile: Profile = Profile()
             val fragmentManager = compactActivity.supportFragmentManager
             profile.show(fragmentManager, "hello")
         }
@@ -202,7 +197,9 @@ class Menu() : DialogFragment() {
 
                     // get "imageView" in fragment_menu.xml, replace user photo with original "nan" photo.
                     val profilePhotoImageView = requireView().findViewById<ImageView>(R.id.imageView)
-                    val profilePhotoDrawable = ContextCompat.getDrawable(context, R.drawable.profile)
+                    val profilePhotoDrawable = ContextCompat.getDrawable(context,
+                        R.drawable.profile
+                    )
 
                     profilePhotoImageView.setImageDrawable(profilePhotoDrawable)
 

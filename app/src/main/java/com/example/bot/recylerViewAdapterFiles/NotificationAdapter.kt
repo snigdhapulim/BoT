@@ -1,12 +1,11 @@
-package com.example.bot
-import android.util.Log
+package com.example.bot.recylerViewAdapterFiles
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
+import com.example.bot.R
+import com.example.bot.data.NotificationContent
 
 class NotificationAdapter(private var nList: List<NotificationContent>) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>(){
     // create new views

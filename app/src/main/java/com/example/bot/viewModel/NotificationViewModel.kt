@@ -1,19 +1,18 @@
-package com.example.bot
+package com.example.bot.viewModel
 
-import android.app.Notification
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bot.RetrofitInstance.mbtaApi
+import com.example.bot.data.AlertResponse
+import com.example.bot.data.NotificationContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 
 class NotificationViewModel : ViewModel() {
     private val _notifications = MutableLiveData<List<NotificationContent>>()

@@ -1,19 +1,13 @@
 package com.example.bot
 
-import android.graphics.Color
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.testing.launchFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bot.databinding.FragmentEventBinding
-import com.example.bot.databinding.FragmentEventDetailBinding
-import java.util.*
+import com.example.bot.fragments.dialog.EventDetailFragment
+
 //private var tts: TextToSpeech? = null
 class EventHolder(
     private val binding: FragmentEventBinding

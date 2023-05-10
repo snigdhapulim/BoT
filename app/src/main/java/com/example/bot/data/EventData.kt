@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.data
 
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bot.EventListAdapter
+import com.example.bot.viewModel.EventListViewModel
 import com.example.bot.databinding.FragmentEventListBinding
 import com.example.bot.network.EmailRequestBody
 import com.example.bot.network.UserAPI
@@ -24,11 +26,10 @@ import java.util.*
 
 private const val TAG = "EventListFragment"
 
-
 class EventListFragment: Fragment() {
 
     private var _binding: FragmentEventListBinding? = null
-    private lateinit var tts:TextToSpeech
+    private lateinit var tts: TextToSpeech
     private lateinit var filter: String
     private val binding
         get() = checkNotNull(_binding) {
@@ -58,7 +59,7 @@ class EventListFragment: Fragment() {
                     UserAPI.FetchCalendarEventsTodayAPI.retrofitFetchCalendarEventsTodayService.fetchCalendarEventsToday(
                         requestBody
                     )
-                Log.d("ForCheckingEvent",events::class.java.typeName)
+                Log.d("ForCheckingEvent", events::class.java.typeName)
             }
             else{
                 events =

@@ -1,32 +1,21 @@
-package com.example.bot
+package com.example.bot.fragments.dialog
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.example.bot.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val TITLE = "param1"
 private const val ADDRESS = "param2"
 private const val DATE = "param3"
 private const val TIME = "param4"
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EventDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EventDetailFragment : DialogFragment() {
     // TODO: Rename and change types of parameters
     private var title: String? = null

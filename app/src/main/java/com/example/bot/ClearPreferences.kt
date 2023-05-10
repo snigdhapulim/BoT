@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.bot.activities.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 

@@ -20,7 +20,7 @@
         android:icon="@drawable/bot_logo"
         tools:targetApi="28">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".activities.SplashScreenActivity"
             android:exported="true" >
 
             <intent-filter>
@@ -36,22 +36,22 @@
             android:exported="true" />
 
         <activity
-            android:name=".EditEvent"
+            android:name=".activities.EditEvent"
             android:exported="false" />
         <activity
-            android:name=".AddEvent"
+            android:name=".activities.AddEvent"
             android:exported="false" />
         <activity
-            android:name=".EventsViewActivity"
+            android:name=".activities.EventsViewActivity"
             android:exported="false" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".activities.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:exported="true">
         </activity>
 

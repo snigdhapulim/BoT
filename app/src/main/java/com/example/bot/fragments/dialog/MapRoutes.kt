@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.fragments.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,7 +16,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bot.GoogleMapsDirectionsApiService
+import com.example.bot.recylerViewAdapterFiles.MapRouteAdapter
 import com.example.bot.R
+import com.example.bot.activities.SplashScreenActivity
 import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.maps.model.TravelMode
@@ -26,7 +28,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.time.*
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 
 class MapRoutes : DialogFragment() {
     private lateinit var summary: String
@@ -34,7 +35,7 @@ class MapRoutes : DialogFragment() {
     private lateinit var startDateTimeInstant: Instant
     private lateinit var location: String
     private lateinit var startLocation: String
-    private lateinit var myAdapter:MapRouteAdapter
+    private lateinit var myAdapter: MapRouteAdapter
     private lateinit var submitEvent:Button
     private lateinit var repeat:String
 

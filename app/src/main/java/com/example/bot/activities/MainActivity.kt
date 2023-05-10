@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bot.fragments.EventListFragment
+import com.example.bot.R
 import com.example.bot.databinding.ActivityMainBinding
 import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn

@@ -1,17 +1,20 @@
-package com.example.bot
+package com.example.bot.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
+import com.example.bot.activities.EditEvent
+import com.example.bot.activities.EventsViewActivity
+import com.example.bot.R
+import com.example.bot.activities.AddEvent
+import com.example.bot.activities.MainActivity
+import com.example.bot.activities.NotificationActivity
+import com.example.bot.fragments.dialog.Menu
 
 
 class AppBar : Fragment() {
@@ -45,7 +48,7 @@ class AppBar : Fragment() {
         }
 
         profileFragment.setOnClickListener {
-            var menu:Menu= Menu()
+            var menu: Menu = Menu()
             val mainActivity = requireActivity()
             val fragmentManager = compactActivity.supportFragmentManager
             menu.show(fragmentManager, "menu")
