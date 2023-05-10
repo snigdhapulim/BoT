@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.maps.model.TravelMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -59,6 +60,11 @@ class MapRoutes : DialogFragment() {
 
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CoroutineScope(Dispatchers.Main).cancel()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -101,7 +107,10 @@ class MapRoutes : DialogFragment() {
             //
             CoroutineScope(Dispatchers.Main).launch {
                 var addEvent = UserAPI.CreateEventAPI.retrofitCreateEventService.createEvent(events)
-                val intent = Intent(requireContext(), MainActivity::class.java)
+                val intent = Intent(context, SplashScreenActivity::class.java)
+                intent.putExtra("first", false)
+                intent.putExtra("main", true)
+                intent.putExtra("add", true)
                 startActivity(intent)
             }
         }

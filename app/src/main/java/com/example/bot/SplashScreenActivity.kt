@@ -15,6 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val intent = getIntent()
         val isFirst = intent.getBooleanExtra("first", true)
         val isMain = intent.getBooleanExtra("main", false)
+        val isAdd = intent.getBooleanExtra("add", false)
 
         val animation = AnimationUtils.loadAnimation(this, R.anim.splash_logo_animation)
 
@@ -35,7 +36,12 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }, 3000)
-            finish()
+        }else if(isAdd){
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 6000)
         }
     }
 }

@@ -26,4 +26,5 @@
     <color name="colorAccent">#FF03DAC5</color>
     <color name="colorAccentDark">#A9023939</color>
     <color name="list_of_routes">#DCE1E3</color>
+    <color name="splash_background">#F6E29D</color>
 </resources>
