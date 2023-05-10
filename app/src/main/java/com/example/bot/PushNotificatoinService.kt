@@ -23,7 +23,7 @@ import java.util.*
 
 class PushNotificationService : Service() {
     // Define a timer object
-    private var timer: Timer? = null
+    var timer: Timer? = null
     private var hasNew: Boolean = false
     private var header: String = ""
     private var content: String = ""
@@ -82,7 +82,6 @@ class PushNotificationService : Service() {
 
                             }
                         }
-
                     }
 
                     override fun onFailure(call: Call<AlertResponse?>, t: Throwable) {
