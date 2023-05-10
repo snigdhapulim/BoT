@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BoT</string>
+    <string name="app_name" translatable="false">BoT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="fake_content">Shuttle UPCOMING Shuttle buses replace
 Braintree Branch service between North Quincy
@@ -19,5 +19,12 @@ Updated: 3/30/2023 4:30 AM</string>
     <string name="all_events">All Events</string>
     <string name="view_profile">View Profile</string>
     <string name="Nan_username">NaN</string>
-    <string name="maps_api">AIzaSyAmjj4km9mc04VEvtj3mqVEYH6L7kc2vks</string>
+    <string name="maps_api" translatable="false">AIzaSyAmjj4km9mc04VEvtj3mqVEYH6L7kc2vks</string>
+    <string-array name="repeating">
+        <item>Weekly</item>
+        <item>Bi-Weekly</item>
+        <item>Monthly</item>
+        <item>Daily</item>
+        <item>Not a repeating event</item>
+    </string-array>
 </resources>

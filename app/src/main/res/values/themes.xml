@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <style name="custum_card" parent="@style/CardView" >
         <item name="android:layout_width">match_parent</item>
@@ -20,6 +21,14 @@
         <item name="android:layout_marginRight">25dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:backgroundTint">@color/black_transparent</item>
+    </style>
+    <style name="custum_card_routes_dialog" parent="@style/CardView" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">25dp</item>
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:backgroundTint">@color/list_of_routes</item>
     </style>
     <style name="custum_card_full" parent="@style/CardView" >
         <item name="android:layout_width">match_parent</item>
@@ -36,5 +45,11 @@
         <item name="android:layout_marginRight">25dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:backgroundTint">@color/grey</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
     </style>
 </resources>

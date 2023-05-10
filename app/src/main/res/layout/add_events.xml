@@ -6,14 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     android:background="@drawable/background"
     android:orientation="vertical"
     android:id="@+id/mainLayout">
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.bot.AppBar"
+        android:name="com.example.bot.fragments.AppBar"
         android:id="@+id/app_bar"/>
     <ScrollView
         android:layout_width="match_parent"
@@ -90,8 +90,6 @@
                         android:orientation="vertical"
                         android:padding="0dp">
 
-
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -104,31 +102,31 @@
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="0dp"
-                            android:background="@drawable/edit_text_border"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="0dp"
+                                android:background="@drawable/edit_text_border"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center_vertical">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/event_loc"
-                                android:paddingLeft="10dp"
-                                />
-                            <fragment android:id="@+id/autocomplete_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="start"
-                                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                                />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/event_loc"
+                                    android:paddingLeft="10dp"
+                                    />
+                                <fragment android:id="@+id/autocomplete_fragment_dep"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                                    />
+
+                            </LinearLayout>
 
                         </LinearLayout>
-
-                    </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -162,11 +160,12 @@
                                 android:src="@drawable/dep_loc"
                                 android:paddingLeft="10dp"
                                 />
-                            <fragment android:id="@+id/autocomplete_fragment_dep"
-                                android:layout_width="wrap_content"
+                            <fragment android:id="@+id/autocomplete_fragment"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+
                                 />
 
 
@@ -185,7 +184,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:text="Start Date &amp; Time"
+                            android:text="Date &amp; Time"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -195,90 +194,35 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="0dp">
-
-                            <Button
+                            <EditText
                                 android:id="@+id/add_Date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
+                                android:layout_marginRight="20dp"
                                 android:background="@drawable/edit_text_border"
                                 android:padding="8dp"
                                 android:drawableLeft="@drawable/date"
                                 android:textColor="@color/white"
+                                android:hint="mm/dd/yyyy"
                                 android:textColorHint="@color/placeholder"
-                                android:text="Date"
-                                android:minHeight="70dp"
-                                android:minWidth="100dp"/>
+                                android:inputType="none"
+                                android:focusable="false"/>
 
-                            <Button
+                            <EditText
                                 android:id="@+id/add_Time"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:background="@drawable/edit_text_border"
                                 android:padding="8dp"
-                                android:drawableLeft="@drawable/baseline_access_time_24"
                                 android:textColor="@color/white"
+                                android:hint="15:00  "
                                 android:textColorHint="@color/placeholder"
-                                android:text="Time"
-                                android:minHeight="70dp"
-                                android:layout_marginLeft="20dp"
-                                android:minWidth="100dp"/>
+                                android:inputType="none"
+                                android:focusable="false"/>
 
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:padding="0dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:text="End Date &amp; Time"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:padding="0dp">
-
-                                <Button
-                                    android:id="@+id/add_Date_end"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@drawable/edit_text_border"
-                                    android:padding="8dp"
-                                    android:drawableLeft="@drawable/date"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/placeholder"
-                                    android:text="Date"
-                                    android:minHeight="70dp"
-                                    android:minWidth="100dp"/>
-
-                                <Button
-                                    android:id="@+id/add_Time_end"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@drawable/edit_text_border"
-                                    android:padding="8dp"
-                                    android:drawableLeft="@drawable/baseline_access_time_24"
-                                    android:textColor="@color/white"
-                                    android:textColorHint="@color/placeholder"
-                                    android:text="Time"
-                                    android:minHeight="70dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:minWidth="100dp"/>
-
-                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -292,44 +236,34 @@
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
-                                    <RadioGroup
-                                        android:id="@+id/my_radio_group"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content">
-                                        <RadioButton
-                                            android:id="@+id/radio_button_1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Weekly"
-                                            android:textColor="@color/white"/>
+                            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-                                        <RadioButton
-                                            android:id="@+id/radio_button_2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Bi-Weekly"
-                                            android:textColor="@color/white" />
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/edit_text_border"
+                                    android:textColor="@color/white"
+                                    android:textColorHint="@color/placeholder">
 
-                                        <RadioButton
-                                            android:id="@+id/radio_button_3"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Monthly"
-                                            android:textColor="@color/white" />
-                                        <RadioButton
-                                            android:id="@+id/radio_button_4"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Daily"
-                                            android:textColor="@color/white" />
-                                        <RadioButton
-                                            android:id="@+id/radio_button_5"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Not a repeating event"
-                                            android:textColor="@color/white" />
+                                    <AutoCompleteTextView
+                                        android:id="@+id/autoComplete"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="none"
+                                        android:background="@drawable/edit_text_border"
+                                        android:completionThreshold="0"
+                                        android:padding="8dp"
+                                        android:textColor="@color/white"
+                                        android:textColorHint="@color/placeholder"
+                                        android:text="Weekly"
+                                        />
 
-                                    </RadioGroup>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </androidx.coordinatorlayout.widget.CoordinatorLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -367,7 +301,10 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
+
+
 
     </ScrollView>
 

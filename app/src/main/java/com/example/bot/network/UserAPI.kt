@@ -9,7 +9,7 @@ import retrofit2.http.*
 import kotlin.reflect.jvm.internal.impl.util.Check
 
 private val BASE_URL =
-    "https://bo-t-backend.vercel.app/api/android/"
+    "https://frantic-costume-crow.cyclic.app/api/android/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -23,7 +23,7 @@ val retrofit = Retrofit.Builder()
 class UserAPI {
     class User(private val name: String, private val email: String, private val authorization: String)
 
-    class Event(private val summary:String, private val email:String, private val description:String, private val startDateTime:String, private val endDateTime: String, private val location: String, private val access_token: String, private val origin:String)
+    class Event(private val summary:String, private val email:String, private val description:String, private val startDateTime:String, private val endDateTime: String, private val location: String, private val access_token: String, private val legsData: List<String>, private val duration: String, private val distance: String, private val repeat: String)
     class HomeAddress(private val email:String, private val homeAddress: String)
 
         public object UserCreateAPI {
@@ -44,6 +44,12 @@ class UserAPI {
             }
         }
 
+    public object FetchCalendarEventsTodayAPI {
+        val retrofitFetchCalendarEventsTodayService: FetchCalendarEventsTodayService by lazy {
+            retrofit.create(FetchCalendarEventsTodayService::class.java)
+        }
+    }
+
         public object UpdateAddressAPI {
             val retrofitUpdateAddressService : UpdateAddressService by lazy {
                 retrofit.create(UpdateAddressService::class.java)
@@ -55,6 +61,12 @@ class UserAPI {
                 retrofit.create(CreateEventService::class.java)
             }
         }
+
+    public object RefreshTokenApi {
+        val retrofitRefreshTokenService: RefreshTokenService by lazy {
+            retrofit.create(RefreshTokenService::class.java)
+        }
+    }
 
         interface USERAPICreateService {
             @POST("user/calender/add")
@@ -76,9 +88,19 @@ class UserAPI {
             suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
         }
 
+    interface FetchCalendarEventsTodayService {
+        @POST("user/calender/event/today")
+        suspend fun fetchCalendarEventsToday(@Body requestBody: EmailRequestBody): List<EventData>
+    }
+
     interface CreateEventService {
         @POST("calender/event/create")
         suspend fun createEvent(@Body eventBody: Event) : EventCreateRequestBody
+    }
+
+    interface RefreshTokenService {
+        @GET("refresh-token/{email}")
+        suspend fun refreshToken(@Path("email") email: String) : UserData
     }
 
 }

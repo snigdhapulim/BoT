@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Scale animation to make the logo grow and shrink -->
+    <scale
+        android:duration="1000"
+        android:fromXScale="0.5"
+        android:fromYScale="0.5"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+    <!-- Alpha animation to make the logo fade in and out -->
+    <alpha
+        android:duration="1000"
+        android:fromAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:toAlpha="1.0" />
+</set>
