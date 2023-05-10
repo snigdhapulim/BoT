@@ -47,4 +47,8 @@ class NotificationActivity : AppCompatActivity() {
 
 
     }
+
+    fun getNotificationViewModel() : NotificationViewModel {
+        return notificationViewModel
+    }
 }
