@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.bot.activities.SignUpActivity
 import org.junit.Test
 
-class SignupActivity {
+class SignupActivityTest {
     @Test
     fun testEventsFragment() {
         // Launch the activity
