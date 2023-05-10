@@ -33,7 +33,6 @@ class EventDetailFragment : DialogFragment() {
     private var address: String? = null
     private var date: String? = null
     private var time: String? = null
-    private lateinit var edit_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +64,7 @@ class EventDetailFragment : DialogFragment() {
         dateTextView.text = date
         timeTextView.text = time
 
-        edit_button = view.findViewById(R.id.edit_button)
-        edit_button.setOnClickListener{
-            val intent = Intent((activity as MainActivity), EditEvent::class.java)
-            (activity as MainActivity).startActivity(intent)
-        }
+
         return view
     }
 

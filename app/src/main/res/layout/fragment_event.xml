@@ -81,7 +81,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/timeToLeave"
@@ -93,5 +95,6 @@
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949" />
+        app:layout_constraintVertical_bias="0.949"
+        android:textColor="@color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

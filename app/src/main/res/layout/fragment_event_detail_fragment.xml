@@ -21,6 +21,7 @@
 
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="114dp"
             android:layout_height="114dp"
             android:layout_marginLeft="-25dp"
@@ -70,17 +71,18 @@
 
         <TextView
             android:id="@+id/title_text_view"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="MOBILE APP DEV 501"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.605"
+            app:layout_constraintHorizontal_bias="0.898"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.061" />
+            app:layout_constraintVertical_bias="0.103" />
 
         <LinearLayout
             android:layout_width="match_parent"
