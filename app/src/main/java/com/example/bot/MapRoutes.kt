@@ -28,9 +28,6 @@ import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class MapRoutes : DialogFragment() {
     private lateinit var summary: String
     private lateinit var startDateTime: String
