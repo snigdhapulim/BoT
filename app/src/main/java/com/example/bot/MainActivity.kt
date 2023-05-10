@@ -25,7 +25,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        checkTtsEngine()
+
+        val eventListFragment = EventListFragment()
+        val args = Bundle()
+        args.putString("filter", "today")
+        eventListFragment.arguments = args
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.events_view, eventListFragment)
+            .commit()
 
         val acco = GoogleSignIn.getLastSignedInAccount(this)
         CoroutineScope(Dispatchers.Main).launch {

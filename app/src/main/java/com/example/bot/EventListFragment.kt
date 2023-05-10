@@ -1,11 +1,13 @@
 package com.example.bot
 
+import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -27,6 +29,7 @@ class EventListFragment: Fragment() {
 
     private var _binding: FragmentEventListBinding? = null
     private lateinit var tts:TextToSpeech
+    private lateinit var filter: String
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -34,10 +37,14 @@ class EventListFragment: Fragment() {
 
     private val eventListViewModel: EventListViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val acco = GoogleSignIn.getLastSignedInAccount(requireContext())
         val email = acco?.email.toString()
+        // retrieve the filter parameter from the arguments bundle
+        filter = arguments?.getString("filter").toString()
+
         Log.d(TAG, "Email: ${email}")
         tts = TextToSpeech(requireContext()) {
             Log.i("MainActivity", "onCreate: $it")
@@ -45,10 +52,20 @@ class EventListFragment: Fragment() {
         tts.language = Locale.US
         eventListViewModel.viewModelScope.launch {
             val requestBody = EmailRequestBody(email)
-            val events =
-                UserAPI.FetchCalendarEventsAPI.retrofitFetchCalendarEventsService.fetchCalendarEvents(
-                    requestBody
-                )
+            val events :List<com.example.bot.network.EventData>
+            if(filter == "today"){
+                events =
+                    UserAPI.FetchCalendarEventsTodayAPI.retrofitFetchCalendarEventsTodayService.fetchCalendarEventsToday(
+                        requestBody
+                    )
+                Log.d("ForCheckingEvent",events::class.java.typeName)
+            }
+            else{
+                events =
+                    UserAPI.FetchCalendarEventsAPI.retrofitFetchCalendarEventsService.fetchCalendarEvents(
+                        requestBody
+                    )
+            }
             eventListViewModel.eventList.clear()
             eventListViewModel.eventList.addAll(events)
             eventListViewModel.setOnEventListChangedListener(object :

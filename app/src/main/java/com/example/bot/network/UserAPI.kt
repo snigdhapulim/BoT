@@ -44,6 +44,12 @@ class UserAPI {
             }
         }
 
+    public object FetchCalendarEventsTodayAPI {
+        val retrofitFetchCalendarEventsTodayService: FetchCalendarEventsTodayService by lazy {
+            retrofit.create(FetchCalendarEventsTodayService::class.java)
+        }
+    }
+
         public object UpdateAddressAPI {
             val retrofitUpdateAddressService : UpdateAddressService by lazy {
                 retrofit.create(UpdateAddressService::class.java)
@@ -81,6 +87,11 @@ class UserAPI {
             @POST("user/calender/event")
             suspend fun fetchCalendarEvents(@Body requestBody: EmailRequestBody): List<EventData>
         }
+
+    interface FetchCalendarEventsTodayService {
+        @POST("user/calender/event/today")
+        suspend fun fetchCalendarEventsToday(@Body requestBody: EmailRequestBody): List<EventData>
+    }
 
     interface CreateEventService {
         @POST("calender/event/create")
