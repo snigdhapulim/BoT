@@ -70,7 +70,6 @@ class EventListFragment: Fragment() {
                         requestBody
                     )
             }
-
             val handler = Handler(Looper.getMainLooper())
             val runnable = object : Runnable {
                 override fun run() {

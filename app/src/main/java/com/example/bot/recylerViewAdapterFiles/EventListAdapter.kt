@@ -76,6 +76,7 @@ class EventHolder(
 
                     // Get the timestamp
                     val timestamp = calendar.timeInMillis
+                    Log.i("Event Adapter", timestamp.toString())
                     if(first) {
                         scheduleNotification(
                             binding.root.context,
