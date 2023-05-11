@@ -24,7 +24,8 @@ data class EventData(
     @Json(name = "summary") val summary: String,
     @Json(name = "location") val location: String,
     @Json(name = "description") val description: String,
-    @Json(name = "_id") val id: String
+    @Json(name = "_id") val id: String,
+    @Json(name="duration") val duration: String
 )
 
 @JsonClass(generateAdapter = true)

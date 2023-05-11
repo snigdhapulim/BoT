@@ -31,7 +31,7 @@ class PushNotificationService : Service() {
     private var timeInterval: Int = 300
     // in millisecond; time cycle of calling mbta api
 //    private var callApiCycle: Int = timeInterval * 60000
-    private var callApiCycle: Long = 20000 // 20sec
+    private var callApiCycle: Long = 3600000// 20sec
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
