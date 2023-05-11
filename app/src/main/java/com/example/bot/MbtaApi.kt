@@ -1,5 +1,6 @@
 package com.example.bot
 
+import com.example.bot.data.AlertResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

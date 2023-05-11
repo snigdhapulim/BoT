@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.data
 
 /**
  * This is a data class for holding the content of api response ("alerts") from MBTA API

@@ -1,14 +1,7 @@
-package com.example.bot
+package com.example.bot.viewModel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import java.util.*
 
-private const val TAG = "EventListViewModel"
 class EventListViewModel : ViewModel() {
         val eventList = mutableListOf<com.example.bot.network.EventData>()
 

@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.data
 
 /**
  * This is a data class for holding content of each notification itemview in the recyclerview

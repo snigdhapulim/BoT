@@ -6,14 +6,13 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.nfc.Tag
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.bot.RetrofitInstance.mbtaApi
+import com.example.bot.data.AlertResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +23,7 @@ import java.util.*
 
 class PushNotificationService : Service() {
     // Define a timer object
-    private var timer: Timer? = null
+    var timer: Timer? = null
     private var hasNew: Boolean = false
     private var header: String = ""
     private var content: String = ""
@@ -83,7 +82,6 @@ class PushNotificationService : Service() {
 
                             }
                         }
-
                     }
 
                     override fun onFailure(call: Call<AlertResponse?>, t: Throwable) {

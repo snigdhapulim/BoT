@@ -1,20 +1,16 @@
-package com.example.bot
+package com.example.bot.recylerViewAdapterFiles
 
 import android.animation.ValueAnimator
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bot.R
 import com.google.maps.model.DirectionsRoute
-import com.google.maps.model.DirectionsStep
 import com.google.maps.model.TravelMode
-import okhttp3.Route
-import org.w3c.dom.Text
 
 class MapRouteAdapter(private val routes: Array<DirectionsRoute>) : RecyclerView.Adapter<MapRouteAdapter.ViewHolder>() {
 
@@ -49,7 +45,9 @@ class MapRouteAdapter(private val routes: Array<DirectionsRoute>) : RecyclerView
         holder.routeTextView.text=textRoute
 
         if (selectedPosition==position){
-            holder.listElement.background= ContextCompat.getDrawable(holder.itemView.context, R.drawable.routes_list_selected)
+            holder.listElement.background= ContextCompat.getDrawable(holder.itemView.context,
+                R.drawable.routes_list_selected
+            )
 
             if(first ==false) {
                 val valueAnimator =
@@ -72,7 +70,9 @@ class MapRouteAdapter(private val routes: Array<DirectionsRoute>) : RecyclerView
 
         }
         else{
-            holder.listElement.background=ContextCompat.getDrawable(holder.itemView.context, R.drawable.routes_list)
+            holder.listElement.background=ContextCompat.getDrawable(holder.itemView.context,
+                R.drawable.routes_list
+            )
             if(holder.listElement.layoutParams.height!=360) {
                 val valueAnimator =
                     ValueAnimator.ofInt(holder.listElement.measuredHeight, 360 )

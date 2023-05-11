@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Profile">
+    tools:context=".fragments.dialog.Profile">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity"
+        tools:context=".activities.MainActivity"
         android:minWidth="400dp"
         android:orientation="vertical"
         android:gravity="center"

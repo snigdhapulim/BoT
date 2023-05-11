@@ -6,17 +6,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.testing.launchFragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bot.activities.MainActivity
 import com.example.bot.databinding.FragmentEventBinding
 import com.example.bot.databinding.FragmentEventDetailBinding
 import java.util.*
@@ -25,6 +22,7 @@ import java.util.Calendar
 import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
+import com.example.bot.fragments.dialog.EventDetailFragment
 
 //private var tts: TextToSpeech? = null
 private const val TAG = "EventListViewAdapter"
@@ -56,7 +54,7 @@ class EventHolder(
     }
 
     @ExperimentalTime
-    fun bind(event: com.example.bot.network.EventData, tts:TextToSpeech) {
+    fun bind(event: com.example.bot.network.EventData, tts:TextToSpeech, first: Boolean) {
         val dateTimeString = event.start.dateTime
         val timeString = dateTimeString.substring(11, 16)
         binding.time.text = timeString
@@ -78,7 +76,14 @@ class EventHolder(
 
                     // Get the timestamp
                     val timestamp = calendar.timeInMillis
-                    scheduleNotification(binding.root.context, "Leave in 10 minutes!", "Leave in 10 minutes for ${event.summary}.", timestamp)
+                    if(first) {
+                        scheduleNotification(
+                            binding.root.context,
+                            "Leave in 10 minutes!",
+                            "Leave in 10 minutes for ${event.summary}.",
+                            timestamp
+                        )
+                    }
                     Log.i(TAG, "Notification has been scheduled.")
             }
             if(minutesBetween < 0){
@@ -104,7 +109,8 @@ class EventHolder(
 
 class EventListAdapter(
     private val events: List<com.example.bot.network.EventData>,
-    private val tts:TextToSpeech
+    private val tts:TextToSpeech,
+    private val first: Boolean
 ) : RecyclerView.Adapter<EventHolder>(){
 
     override fun onCreateViewHolder(
@@ -119,7 +125,7 @@ class EventListAdapter(
     @OptIn(ExperimentalTime::class)
     override fun onBindViewHolder(holder: EventHolder, position: Int) {
         val event = events[position]
-        holder.bind(event, tts)
+        holder.bind(event, tts, first)
     }
     override fun getItemCount() = events.size
 

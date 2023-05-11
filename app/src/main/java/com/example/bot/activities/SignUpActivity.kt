@@ -1,7 +1,6 @@
-package com.example.bot
+package com.example.bot.activities
 
 //import RetrieveCalendarEventsTask
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +8,9 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.lifecycleScope
+import com.example.bot.PushNotificationService
+import com.example.bot.R
 import com.example.bot.network.UserAPI
-import com.example.bot.network.UserData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -20,10 +18,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONObject
 
 
 class SignUpActivity : AppCompatActivity() {

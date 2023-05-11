@@ -1,7 +1,9 @@
-package com.example.bot
+package com.example.bot.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.bot.fragments.EventListFragment
+import com.example.bot.R
 
 class EditEvent : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

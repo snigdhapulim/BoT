@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.activities
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -7,15 +7,9 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.*
-import androidx.compose.material3.Button
-import androidx.fragment.app.clearFragmentResult
-import androidx.fragment.app.clearFragmentResultListener
-import com.example.bot.databinding.ActivityMainBinding
+import com.example.bot.fragments.dialog.MapRoutes
+import com.example.bot.R
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -47,7 +41,8 @@ class AddEvent : AppCompatActivity() {
         setContentView(binding.root)
 
         //var compactActivity = AppCompatActivity()
-        autoAdapter=ArrayAdapter<String>(this,R.layout.list_item,resources.getStringArray(R.array.repeating))
+        autoAdapter=ArrayAdapter<String>(this,
+            R.layout.list_item,resources.getStringArray(R.array.repeating))
 
         binding.autoComplete.setAdapter(autoAdapter)
 
@@ -150,6 +145,7 @@ class AddEvent : AppCompatActivity() {
 
         val calendar = Calendar.getInstance()
 
+        // Retrieved from ChatGPT
         binding.addDate.setOnClickListener {
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
@@ -163,6 +159,7 @@ class AddEvent : AppCompatActivity() {
             datePickerDialog.show()
         }
 
+        // Retrieved from ChatGPT
         binding.addTime.setOnClickListener {
             val currentTime = Calendar.getInstance()
             val hour = currentTime.get(Calendar.HOUR_OF_DAY)

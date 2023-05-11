@@ -1,4 +1,4 @@
-package com.example.bot
+package com.example.bot.fragments.dialog
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.bot.R
 import com.example.bot.network.UserAPI
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.Status
@@ -31,11 +30,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [Profile.newInstance] factory method to
@@ -43,8 +37,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class Profile : DialogFragment(){
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var name : TextView
     private lateinit var email : TextView
     private lateinit var image : ImageView
@@ -57,8 +49,6 @@ class Profile : DialogFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 //
@@ -143,13 +133,18 @@ class Profile : DialogFragment(){
                     // TODO: Get info about the selected place.
                     Log.i("Add Event", "Place:${place.address}")
                     CoroutineScope(Dispatchers.Main).launch {
-                        var addr = UserAPI.HomeAddress(acco.email.toString(), place.address.toString())
+                        var addr =
+                            UserAPI.HomeAddress(acco.email.toString(), place.address.toString())
                         UserAPI.UpdateAddressAPI.retrofitUpdateAddressService.updateAddress(addr)
                     }
                     // get the FragmentManager instance
                     val fragmentManager = requireActivity().supportFragmentManager
 
-                    Toast.makeText(requireContext(), "Successfully updated address", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        "Successfully updated address",
+                        Toast.LENGTH_SHORT
+                    )
                     // clear the back stack by popping all fragments
                     fragmentManager.fragments.forEach { fragment ->
                         if (fragment is DialogFragment) {
